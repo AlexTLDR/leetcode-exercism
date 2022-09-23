@@ -10,16 +10,23 @@ func main() {
 }
 
 func maximumScore(nums []int, multipliers []int) int {
-	//n, m := len(nums), len(multipliers)
-	if nums[0]*multipliers[0] > nums[len(nums)-1]*multipliers[0] {
-		return nums[0] * multipliers[0]
-	} else {
-		return nums[len(nums)-1] * multipliers[0]
+	if len(multipliers) == 1 {
+		if nums[0]*multipliers[0] > nums[len(nums)-1]*multipliers[0] {
+			return nums[0] * multipliers[0]
+		} else {
+			return nums[len(nums)-1] * multipliers[0]
+		}
 	}
 
-	// left := maximumScore(nums[1], multipliers[0])
-	// right := maximumScore(nums[len(nums)-1], multiplies[len(multipliers)-1])
-	// return max(left, right)
-	//work in progress, not yet finished
+	left := nums[0]*multipliers[0] + maximumScore(nums[1:], multipliers[1:])
+	right := nums[len(nums)-1]*multipliers[0] + maximumScore(nums[:len(nums)-1], multipliers[1:])
+	return max(left, right)
 
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
