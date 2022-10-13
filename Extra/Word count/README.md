@@ -1,0 +1,1 @@
+Count how many times each word apperas in a text.
