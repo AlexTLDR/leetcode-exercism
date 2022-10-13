@@ -1,0 +1,1 @@
+Calculate the maximal value in a slice
