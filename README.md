@@ -1,1 +1,1 @@
-My Golang solutions to leetcode.com problems.
+My Golang solutions to exercism.org and leetcode.com problems.
