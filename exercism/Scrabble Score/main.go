@@ -8,16 +8,6 @@ import (
 )
 
 func main() {
-	// scores := make(map[int]string)
-	// scores = map[int]string{
-	// 	1 : "A",
-	// 	2 :
-	// 	3
-	// 	4
-	// 	5
-	// 	8
-	// 	10
-	// }
 
 	fmt.Println(Score("cabbage"))
 	fmt.Println("taste:", Score("Taste"))
@@ -25,12 +15,36 @@ func main() {
 
 func Score(word string) int {
 	var onePoint = "AEIOULNRST"
+	var twoPoints = "DG"
+	var threePoints = "BCMP"
+	var fourPoints = "FHVWY"
+	var fivePoints = "K"
+	var eightPoints = "JX"
+	var tenPoints = "QZ"
+
 	var totalScore int
 	word = strings.ToUpper(word)
 	for _, v := range word {
-		//if v == 'a' || v == 'e' || v == 'i' || v == 'o' || v == 'u' || v == 'l' || v == 'n' || v == 'r' || v == 's' || v == 't' {
 		if strings.ContainsRune(onePoint, v) {
 			score := 1
+			totalScore += score
+		} else if strings.ContainsRune(twoPoints, v) {
+			score := 2
+			totalScore += score
+		} else if strings.ContainsRune(threePoints, v) {
+			score := 3
+			totalScore += score
+		} else if strings.ContainsRune(fourPoints, v) {
+			score := 4
+			totalScore += score
+		} else if strings.ContainsRune(fivePoints, v) {
+			score := 5
+			totalScore += score
+		} else if strings.ContainsRune(eightPoints, v) {
+			score := 8
+			totalScore += score
+		} else if strings.ContainsRune(tenPoints, v) {
+			score := 10
 			totalScore += score
 		}
 
@@ -38,12 +52,3 @@ func Score(word string) int {
 
 	return totalScore
 }
-
-// Letter                           Value
-// A, E, I, O, U, L, N, R, S, T       1
-// D, G                               2
-// B, C, M, P                         3
-// F, H, V, W, Y                      4
-// K                                  5
-// J, X                               8
-// Q, Z                               10
