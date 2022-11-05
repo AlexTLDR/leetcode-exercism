@@ -2,10 +2,28 @@
 
 package main
 
-func main() {
+import (
+	"fmt"
+	"strconv"
+)
 
+func main() {
+	fmt.Println(Convert(35))
 }
 
-func Convert(number int) string {
-	panic("Please implement the Convert function")
+func Convert(n int) string {
+	s := ""
+	if n%3 == 0 {
+		s += "Pling"
+	}
+	if n%5 == 0 {
+		s += "Plang"
+	}
+	if n%7 == 0 {
+		s += "Plong"
+	}
+	if s == "" {
+		return strconv.Itoa(n)
+	}
+	return s
 }
