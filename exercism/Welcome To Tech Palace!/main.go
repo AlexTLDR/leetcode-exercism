@@ -2,18 +2,30 @@
 
 package main
 
-func main() {
+import (
+	"fmt"
+	"strings"
+)
 
+func main() {
+	message := `
+**************************
+*    BUY NOW, SAVE 10%   *
+**************************
+`
+	fmt.Println(WelcomeMessage("Judy"))
+	fmt.Println(AddBorder("Welcome!", 10))
+	fmt.Println(CleanupMessage(message))
 }
 
 func WelcomeMessage(customer string) string {
-	panic("Please implement the WelcomeMessage() function")
+	return "Welcome to the Tech Palace, " + strings.ToUpper(customer)
 }
 
 func AddBorder(welcomeMsg string, numStarsPerLine int) string {
-	panic("Please implement the AddBorder() function")
+	return strings.Repeat("*", numStarsPerLine) + "\n" + welcomeMsg + "\n" + strings.Repeat("*", numStarsPerLine)
 }
 
 func CleanupMessage(oldMsg string) string {
-	panic("Please implement the CleanupMessage() function")
+	return strings.TrimSpace(strings.ReplaceAll(oldMsg, "*", ""))
 }
