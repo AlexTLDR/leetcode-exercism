@@ -2,11 +2,15 @@
 
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	fmt.Println(ShareWith("Bob"))
 }
 
 func ShareWith(name string) string {
-
-	return ""
+	if name == "" {
+		return "One for you, one for me."
+	}
+	return "One for " + name + ", one for me."
 }
