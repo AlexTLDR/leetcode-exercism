@@ -7,15 +7,18 @@ import (
 )
 
 func main() {
-	fmt.Println(IsIsogram("slumberjacks"))
+	fmt.Println(IsIsogram("lumbserjacks"))
 }
 
 func IsIsogram(word string) bool {
-	for i := len(word) - 1; i > 0; i-- {
-		for j := 1; j < i; j++ {
-			fmt.Println("i:", word[i], "j:", word[j])
+	var wordMap map[rune]int = make(map[rune]int)
+	for _, v := range word {
+		wordMap[v]++
+	}
+	for _, v := range wordMap {
+		if v > 1 {
+			return false
 		}
-		return false
 	}
 	return true
 }
