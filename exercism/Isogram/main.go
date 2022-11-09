@@ -13,10 +13,9 @@ func main() {
 
 func IsIsogram(word string) bool {
 	var wordMap map[rune]int = make(map[rune]int)
-	lowerCaseWord := strings.ToLower(word)
-	lowerCaseWord = strings.Replace(lowerCaseWord, "-", "", -1)
-	lowerCaseWord = strings.Replace(lowerCaseWord, " ", "", -1)
-	for _, v := range lowerCaseWord {
+	word = strings.Replace(word, "-", "", -1)
+	word = strings.Replace(word, " ", "", -1)
+	for _, v := range strings.ToLower(word) {
 		wordMap[v]++
 	}
 	for _, v := range wordMap {
