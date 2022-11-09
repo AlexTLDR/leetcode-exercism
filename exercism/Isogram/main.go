@@ -4,6 +4,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -12,7 +13,8 @@ func main() {
 
 func IsIsogram(word string) bool {
 	var wordMap map[rune]int = make(map[rune]int)
-	for _, v := range word {
+	lowerCaseWord := strings.ToLower(word)
+	for _, v := range lowerCaseWord {
 		wordMap[v]++
 	}
 	for _, v := range wordMap {
