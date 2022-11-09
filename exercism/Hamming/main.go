@@ -2,7 +2,10 @@
 
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func main() {
 	a := "GAGCCTACTAACGGGAT"
@@ -11,5 +14,15 @@ func main() {
 }
 
 func Distance(a, b string) (int, error) {
-	return 0, nil
+	hammingDistance := 0
+	if len(a) != len(b) {
+		return -1, errors.New("DNA strands not of equal")
+	}
+	for i := 0; i < len(a); i++ {
+		if a[i] != b[i] {
+			hammingDistance += 1
+		}
+	}
+	return hammingDistance, nil
+
 }
