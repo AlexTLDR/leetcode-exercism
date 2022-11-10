@@ -9,18 +9,18 @@ import (
 
 func main() {
 	fmt.Println(Valid("4539 3195 0343 6467"))
-	//fmt.Println(Valid(strings.Replace("4539 3195 0343 6467", " ", "", -1)))
-	//fmt.Println(strTrimmer("4539 3195 0343 6467"))
 }
 
 func Valid(id string) bool {
+	if len(strTrimmer(id)) < 2 {
+		return false
+	}
 	var sum int
 	var idArr []int
-	fmt.Println(id)
+
 	for _, v := range strTrimmer(id) {
 		idArr = append(idArr, int(v-48))
 	}
-	//fmt.Println(idArr)
 	for i, v := range idArr {
 		if i == 0 || i%2 == 0 {
 			v = doubleDigitValue(v)
