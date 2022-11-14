@@ -1,3 +1,5 @@
+// https://exercism.org/tracks/go/exercises/grains
+
 package main
 
 import (
