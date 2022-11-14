@@ -8,12 +8,12 @@ import (
 )
 
 func main() {
-	fmt.Println(Valid("4539 3195 0343 6467"))
+	fmt.Println(Valid("4539 3195 0343 6468"))
 }
 
 func Valid(id string) bool {
 	trimmed := strings.Replace(id, " ", "", -1)
-	fmt.Println(trimmed)
+
 	if len(trimmed) < 2 {
 		return false
 	}
@@ -23,8 +23,23 @@ func Valid(id string) bool {
 	for _, v := range trimmed {
 		idArr = append(idArr, int(v-48))
 	}
+
+	if len(idArr)%2 == 0 {
+
+		for i, v := range idArr {
+			if i == 0 || i%2 == 0 {
+				v = doubleDigitValue(v)
+			}
+			sum += v
+		}
+		if sum%10 == 0 {
+			return true
+		}
+		return false
+	}
+
 	for i, v := range idArr {
-		if i == 0 || i%2 == 0 {
+		if i == 1 || i%2 != 0 {
 			v = doubleDigitValue(v)
 		}
 		sum += v
