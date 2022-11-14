@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"unicode"
 )
 
 func main() {
@@ -18,7 +19,7 @@ func Valid(id string) bool {
 		return false
 	}
 	for _, v := range trimmed {
-		if int(v-48) < 0 || int(v-48) > 9 {
+		if !unicode.IsDigit(v) {
 			return false
 		}
 	}
@@ -28,8 +29,8 @@ func Valid(id string) bool {
 	for _, v := range trimmed {
 		idArr = append(idArr, int(v-48))
 	}
-
-	if len(idArr)%2 == 0 {
+	switch len(idArr)%2 == 0 {
+	case true:
 
 		for i, v := range idArr {
 			if i == 0 || i%2 == 0 {
@@ -41,17 +42,20 @@ func Valid(id string) bool {
 			return true
 		}
 		return false
+
+	case false:
+		for i, v := range idArr {
+			if i == 1 || i%2 != 0 {
+				v = doubleDigitValue(v)
+			}
+			sum += v
+		}
+		if sum%10 == 0 {
+			return true
+		}
+
 	}
 
-	for i, v := range idArr {
-		if i == 1 || i%2 != 0 {
-			v = doubleDigitValue(v)
-		}
-		sum += v
-	}
-	if sum%10 == 0 {
-		return true
-	}
 	return false
 }
 
