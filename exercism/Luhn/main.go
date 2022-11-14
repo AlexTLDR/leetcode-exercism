@@ -12,13 +12,15 @@ func main() {
 }
 
 func Valid(id string) bool {
-	if len(strTrimmer(id)) < 2 {
+	trimmed := strings.Replace(id, " ", "", -1)
+	fmt.Println(trimmed)
+	if len(trimmed) < 2 {
 		return false
 	}
 	var sum int
 	var idArr []int
 
-	for _, v := range strTrimmer(id) {
+	for _, v := range trimmed {
 		idArr = append(idArr, int(v-48))
 	}
 	for i, v := range idArr {
@@ -42,9 +44,4 @@ func doubleDigitValue(digit int) (value int) {
 		value = doubleDigit
 	}
 	return value
-}
-
-func strTrimmer(str string) (trimmed string) {
-	trimmed = strings.Replace(str, " ", "", -1)
-	return trimmed
 }
