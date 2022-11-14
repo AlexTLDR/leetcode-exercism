@@ -17,6 +17,11 @@ func Valid(id string) bool {
 	if len(trimmed) < 2 {
 		return false
 	}
+	for _, v := range trimmed {
+		if int(v-48) < 0 || int(v-48) > 9 {
+			return false
+		}
+	}
 	var sum int
 	var idArr []int
 
