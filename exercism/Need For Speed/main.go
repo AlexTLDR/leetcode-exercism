@@ -17,18 +17,18 @@ type Track struct {
 
 func main() {
 	//Car.battery := 100
-	batteryDrain := 2
+	batteryDrain := 3
 	speed := 5
 
 	car := NewCar(speed, batteryDrain)
-	fmt.Println(car)
+	fmt.Println("car:", car)
 
 	distance := 800
 	track := NewTrack(distance)
-	fmt.Println(track)
+	fmt.Println("track:", track)
 
-	fmt.Println(Drive(car))
-	fmt.Println(CanFinish(car, track))
+	fmt.Println("drive:", Drive(car))
+	fmt.Println("can finish:", CanFinish(car, track))
 }
 
 func NewCar(speed, batteryDrain int) Car {
@@ -54,8 +54,7 @@ func Drive(car Car) Car {
 
 // CanFinish checks if a car is able to finish a certain track.
 func CanFinish(car Car, track Track) bool {
-	if car.battery/car.batteryDrain >= 1 {
-		return true
-	}
-	return false
+	td := car.battery / car.batteryDrain
+	maxDistance := car.speed * td
+	return maxDistance >= track.distance
 }
