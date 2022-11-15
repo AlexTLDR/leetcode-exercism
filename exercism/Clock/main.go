@@ -7,12 +7,14 @@ import "fmt"
 const minsInDay = 24 * 60
 
 type Clock struct {
-	hour    int
+	hours   int
 	minutes int
 }
 
 func main() {
 	fmt.Println(New(144, 60))
+	c := Clock{23, 15}
+	fmt.Println(c.Add(50))
 }
 
 func New(h, m int) Clock {
@@ -20,15 +22,23 @@ func New(h, m int) Clock {
 		h = h + m/60
 	}
 	fmt.Println(h)
-	h = h % 24
+	h %= 24
 	fmt.Println(h)
-	m = m % 60
+	m %= 60
 	return Clock{h, m}
 }
 
-// func (c Clock) Add(m int) Clock {
-// 	panic("Please implement the Add function")
-// }
+func (c Clock) Add(m int) Clock {
+	c.minutes += m
+	if c.minutes >= 60 {
+		c.hours += c.minutes / 60
+		c.minutes %= 60
+	}
+	if c.hours >= 24 {
+		c.hours %= 24
+	}
+	return c
+}
 
 // func (c Clock) Subtract(m int) Clock {
 // 	panic("Please implement the Subtract function")
