@@ -15,6 +15,7 @@ func main() {
 	fmt.Println(New(144, 60))
 	c := Clock{23, 15}
 	fmt.Println(c.Add(50))
+	fmt.Println(c.String())
 }
 
 func New(h, m int) Clock {
@@ -40,10 +41,10 @@ func (c Clock) Add(m int) Clock {
 	return c
 }
 
-// func (c Clock) Subtract(m int) Clock {
-// 	panic("Please implement the Subtract function")
-// }
+func (c Clock) Subtract(m int) Clock {
+	panic("Please implement the Subtract function")
+}
 
-// func (c Clock) String() string {
-// 	panic("Please implement the String function")
-// }
+func (c Clock) String() string {
+	return fmt.Sprintf("%02d:%02d", c.hours, c.minutes)
+}
