@@ -6,18 +6,24 @@ import "fmt"
 
 const minsInDay = 24 * 60
 
-type Clock int
+type Clock struct {
+	hour    int
+	minutes int
+}
 
 func main() {
-	fmt.Println(New(24, 35))
+	fmt.Println(New(144, 60))
 }
 
 func New(h, m int) Clock {
-	clockTime := h*60 + m
-	if clockTime <= minsInDay {
-		return Clock(clockTime)
+	if m%60 == 0 {
+		h = h + m/60
 	}
-	return Clock(clockTime) - minsInDay
+	fmt.Println(h)
+	h = h % 24
+	fmt.Println(h)
+	m = m % 60
+	return Clock{h, m}
 }
 
 // func (c Clock) Add(m int) Clock {
