@@ -19,12 +19,11 @@ func main() {
 	//Car.battery := 100
 	batteryDrain := 2
 	speed := 5
-	distance := 0
 
 	car := NewCar(speed, batteryDrain)
 	fmt.Println(car)
 
-	distance = 800
+	distance := 800
 	track := NewTrack(distance)
 	fmt.Println(track)
 
@@ -33,17 +32,24 @@ func main() {
 }
 
 func NewCar(speed, batteryDrain int) Car {
-	return Car{battery: 100, speed: speed, batteryDrain: batteryDrain, distance: speed}
+	return Car{battery: 100,
+		batteryDrain: batteryDrain,
+		speed:        speed,
+	}
 }
 
 func NewTrack(distance int) Track {
-	return Track{distance}
+	return Track{distance: distance}
 }
 
 // Drive drives the car one time. If there is not enough battery to drive one more time,
 // the car will not move.
 func Drive(car Car) Car {
-	return Car{battery: car.battery - car.batteryDrain, speed: car.speed}
+	if car.battery >= car.batteryDrain {
+		car.battery -= car.batteryDrain
+		car.distance += car.speed
+	}
+	return car
 }
 
 // CanFinish checks if a car is able to finish a certain track.
