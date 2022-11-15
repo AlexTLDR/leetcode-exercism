@@ -7,6 +7,8 @@ import "fmt"
 func main() {
 	cards := FavoriteCards()
 	fmt.Println(cards)
+	card := GetItem([]int{1, 2, 4, 1}, 3)
+	fmt.Println(card)
 }
 
 // FavoriteCards returns a slice with the cards 2, 6 and 9 in that order.
@@ -17,7 +19,10 @@ func FavoriteCards() []int {
 // GetItem retrieves an item from a slice at given position.
 // If the index is out of range, we want it to return -1.
 func GetItem(slice []int, index int) int {
-	panic("Please implement the GetItem function")
+	if index < 0 || index > len(slice)-1 {
+		return -1
+	}
+	return slice[index]
 }
 
 // SetItem writes an item to a slice at given position overwriting an existing value.
