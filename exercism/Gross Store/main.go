@@ -2,28 +2,77 @@
 
 package main
 
+import "fmt"
+
 func main() {
+	units := Units()
+	fmt.Println(units)
+	bill := NewBill()
+	fmt.Println(bill)
+	bill["carrot"] = 3
+	fmt.Println(bill)
+	ok := AddItem(bill, units, "carrot", "dozen")
+	fmt.Println(ok)
+	fmt.Println(bill)
+	// ok = RemoveItem(bill, units, "carrot", "dozen")
+	// fmt.Println(ok)
 
 }
 
 // Units stores the Gross Store unit measurements.
 func Units() map[string]int {
-	panic("Please implement the Units() function")
+	units := map[string]int{
+		"quarter_of_a_dozen": 3,
+		"half_of_a_dozen":    6,
+		"dozen":              12,
+		"small_gross":        120,
+		"gross":              144,
+		"great_gross":        1728,
+	}
+	return units
 }
 
 // NewBill creates a new bill.
 func NewBill() map[string]int {
-	panic("Please implement the NewBill() function")
+	bill := make(map[string]int)
+	return bill
 }
 
 // AddItem adds an item to customer bill.
 func AddItem(bill, units map[string]int, item, unit string) bool {
-	panic("Please implement the AddItem() function")
+
+	for s := range units {
+		if s == unit {
+			billValue := units[unit]
+			if bill[item] > 0 {
+				//bill[item] = bill[item] + billValue
+				AddToBill(bill, item, billValue)
+				//fmt.Println("from loop:", bill[item], bill)
+			}
+			bill[item] = billValue
+			return true
+		}
+	}
+	return false
+}
+func AddToBill(bill map[string]int, s string, i int) map[string]int {
+	bill[s] = i
+	return bill
 }
 
 // RemoveItem removes an item from customer bill.
 func RemoveItem(bill, units map[string]int, item, unit string) bool {
-	panic("Please implement the RemoveItem() function")
+	for sb := range bill {
+		if sb == item {
+			for si := range units {
+				if si == unit {
+					return true
+				}
+			}
+
+		}
+	}
+	return false
 }
 
 // GetItem returns the quantity of an item that the customer has in his/her bill.
