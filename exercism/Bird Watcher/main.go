@@ -7,7 +7,7 @@ import "fmt"
 func main() {
 	birdsPerDay := []int{2, 5, 0, 7, 4, 1, 3, 0, 2, 5, 0, 1, 3, 1}
 	fmt.Println(TotalBirdCount(birdsPerDay))
-	fmt.Println(BirdsInWeek(birdsPerDay, 2))
+	fmt.Println(BirdsInWeek(birdsPerDay, 1))
 	fmt.Println(FixBirdCountLog(birdsPerDay))
 }
 
@@ -25,8 +25,13 @@ func TotalBirdCount(birdsPerDay []int) int {
 // only the items belonging to the given week.
 func BirdsInWeek(birdsPerDay []int, week int) int {
 	total := 0
-
-	for i := 7; i < len(birdsPerDay); i++ {
+	start := 0
+	end := 7
+	if week == 2 {
+		start = 7
+		end = 14
+	}
+	for i := start; i < end; i++ {
 		total += birdsPerDay[i]
 	}
 	return total
