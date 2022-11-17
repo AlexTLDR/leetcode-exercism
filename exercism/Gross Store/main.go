@@ -67,31 +67,15 @@ func AddItem(bill, units map[string]int, item, unit string) bool {
 
 // RemoveItem removes an item from customer bill.
 func RemoveItem(bill, units map[string]int, item, unit string) bool {
-	// for sb := range bill {
-	// 	if sb == item {
-	// 		for si := range units {
-	// 			if si == unit {
-	// 				return true
-	// 			}
-	// 		}
+	removeBillItem, removeUnitsUnit := units[unit]
+	billItem, unitsUnit := bill[item]
 
-	// 	}
-	// }
-	// return false
-
-	billItem, unitsUnit := units[unit]
-
-	if !unitsUnit {
+	if removeBillItem > billItem || !removeUnitsUnit || !unitsUnit {
 		return false
-	}
-
-	bill[item] -= billItem
-	switch {
-	case bill[item] < 0:
-		return false
-	case bill[item] == 0:
+	} else if removeBillItem == billItem {
 		delete(bill, item)
-		return true
+	} else {
+		bill[item] -= removeBillItem
 	}
 	return true
 }
