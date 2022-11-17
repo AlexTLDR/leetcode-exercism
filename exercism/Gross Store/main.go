@@ -50,7 +50,6 @@ func AddItem(bill, units map[string]int, item, unit string) bool {
 	// 		//AddToBill(bill, item, billValue)
 
 	// 		fmt.Println("from loop:", bill[item], bill)
-	// 		bill[item] = billValue
 	// 		return true
 	// 	}
 	// }
@@ -91,6 +90,7 @@ func RemoveItem(bill, units map[string]int, item, unit string) bool {
 	case bill[item] < 0:
 		return false
 	case bill[item] == 0:
+		delete(bill, item)
 		return true
 	}
 	return true
