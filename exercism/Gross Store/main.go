@@ -17,7 +17,8 @@ func main() {
 	ok = RemoveItem(bill, units, "carrot", "ddozen")
 	fmt.Println("from main2:", bill)
 	fmt.Println(ok)
-
+	qty, ok := GetItem(bill, "carrot")
+	fmt.Println(qty, ok)
 }
 
 // Units stores the Gross Store unit measurements.
@@ -97,5 +98,11 @@ func RemoveItem(bill, units map[string]int, item, unit string) bool {
 
 // GetItem returns the quantity of an item that the customer has in his/her bill.
 func GetItem(bill map[string]int, item string) (int, bool) {
-	panic("Please implement the GetItem() function")
+	for searchedItem, quantity := range bill {
+		switch {
+		case searchedItem == item:
+			return quantity, true
+		}
+	}
+	return 0, false
 }
