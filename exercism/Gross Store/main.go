@@ -13,9 +13,10 @@ func main() {
 	fmt.Println(bill)
 	ok := AddItem(bill, units, "carrot", "dozen")
 	fmt.Println(ok)
-	fmt.Println(bill)
-	// ok = RemoveItem(bill, units, "carrot", "dozen")
-	// fmt.Println(ok)
+	fmt.Println("from main:", bill)
+	ok = RemoveItem(bill, units, "carrot", "ddozen")
+	fmt.Println("from main2:", bill)
+	fmt.Println(ok)
 
 }
 
@@ -41,38 +42,57 @@ func NewBill() map[string]int {
 // AddItem adds an item to customer bill.
 func AddItem(bill, units map[string]int, item, unit string) bool {
 
-	for s := range units {
-		if s == unit {
-			billValue := units[unit]
-			if bill[item] > 0 {
-				//bill[item] = bill[item] + billValue
-				AddToBill(bill, item, billValue)
-				//fmt.Println("from loop:", bill[item], bill)
-			}
-			bill[item] = billValue
-			return true
-		}
+	// for s := range units {
+	// 	if s == unit {
+	// 		billValue := units[unit]
+	// 		bill[item] += billValue
+	// 		//AddToBill(bill, item, billValue)
+
+	// 		fmt.Println("from loop:", bill[item], bill)
+	// 		bill[item] = billValue
+	// 		return true
+	// 	}
+	// }
+	// return false
+
+	billItem, unitsUnit := units[unit]
+
+	if !unitsUnit {
+		return false
 	}
-	return false
-}
-func AddToBill(bill map[string]int, s string, i int) map[string]int {
-	bill[s] = i
-	return bill
+
+	bill[item] += billItem
+	return true
 }
 
 // RemoveItem removes an item from customer bill.
 func RemoveItem(bill, units map[string]int, item, unit string) bool {
-	for sb := range bill {
-		if sb == item {
-			for si := range units {
-				if si == unit {
-					return true
-				}
-			}
+	// for sb := range bill {
+	// 	if sb == item {
+	// 		for si := range units {
+	// 			if si == unit {
+	// 				return true
+	// 			}
+	// 		}
 
-		}
+	// 	}
+	// }
+	// return false
+
+	billItem, unitsUnit := units[unit]
+
+	if !unitsUnit {
+		return false
 	}
-	return false
+
+	bill[item] -= billItem
+	switch {
+	case bill[item] < 0:
+		return false
+	case bill[item] == 0:
+		return true
+	}
+	return true
 }
 
 // GetItem returns the quantity of an item that the customer has in his/her bill.
