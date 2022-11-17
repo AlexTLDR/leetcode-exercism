@@ -48,15 +48,11 @@ func AddItem(bill, units map[string]int, item, unit string) bool {
 	// 		billValue := units[unit]
 	// 		bill[item] += billValue
 	// 		//AddToBill(bill, item, billValue)
-
-	// 		fmt.Println("from loop:", bill[item], bill)
-	// 		return true
 	// 	}
 	// }
 	// return false
 
 	billItem, unitsUnit := units[unit]
-
 	if !unitsUnit {
 		return false
 	}
