@@ -9,8 +9,8 @@ import (
 
 func main() {
 	fmt.Println(Schedule("11/22/2022 9:00:00"))
-	fmt.Println(HasPassed("11/22/2021 9:00:00"))
-	fmt.Println(IsAfternoonAppointment("11/22/2022 9:00:00"))
+	fmt.Println(HasPassed("July 25, 2019 13:45:00"))
+	fmt.Println(IsAfternoonAppointment("Thursday, July 25, 2019 13:45:00"))
 	fmt.Println(Description("11/22/2022 9:45:00"))
 	fmt.Println(AnniversaryDate())
 }
@@ -26,7 +26,7 @@ func Schedule(date string) time.Time {
 
 // HasPassed returns whether a date has passed.
 func HasPassed(date string) bool {
-	appointment, err := time.Parse("1/02/2006 15:04:05", date) //"1/02/2006 15:04:05" the exact date used by go to parse time
+	appointment, err := time.Parse("January 2, 2006 15:04:05", date) //"1/02/2006 15:04:05" the exact date used by go to parse time
 	if err != nil {
 		panic(err)
 	}
@@ -38,7 +38,7 @@ func HasPassed(date string) bool {
 
 // IsAfternoonAppointment returns whether a time is in the afternoon.
 func IsAfternoonAppointment(date string) bool {
-	appointment, err := time.Parse("1/02/2006 15:04:05", date)
+	appointment, err := time.Parse("Monday, January 2, 2006 15:04:05", date)
 	if err != nil {
 		panic(err)
 	}
@@ -50,7 +50,7 @@ func IsAfternoonAppointment(date string) bool {
 
 // Description returns a formatted string of the appointment time.
 func Description(date string) string {
-	appointment, err := time.Parse("1/02/2006 15:04:05", date)
+	appointment, err := time.Parse("1/2/2006 15:04:05", date)
 	if err != nil {
 		panic(err)
 	}
@@ -60,6 +60,6 @@ func Description(date string) string {
 
 // AnniversaryDate returns a Time with this year's anniversary.
 func AnniversaryDate() time.Time {
-	anniversary := time.Date(2020, time.Month(9), 15, 0, 0, 0, 0, time.UTC)
+	anniversary, _ := time.Parse("2006-01-2", fmt.Sprintf("%d-09-15", time.Now().Year()))
 	return anniversary
 }
