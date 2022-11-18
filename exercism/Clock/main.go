@@ -12,21 +12,26 @@ type Clock struct {
 }
 
 func main() {
-	fmt.Println(New(144, 60))
-	c := Clock{23, 15}
-	fmt.Println(c.Add(50))
-	fmt.Println(c.String())
+	// fmt.Println(New(144, 60))
+	// c := Clock{23, 15}
+	// fmt.Println(c.Add(50))
+	// fmt.Println(c.String())
+	fmt.Println(New(0, 160))
 }
 
 func New(h, m int) Clock {
-	if m%60 == 0 {
-		h = h + m/60
-	}
-	fmt.Println(h)
-	h %= 24
-	fmt.Println(h)
-	m %= 60
-	return Clock{h, m}
+	// if m%60 == 0 {
+	// 	h = h + m/60
+	// }
+	// fmt.Println(h)
+	// h %= 24
+	// fmt.Println(h)
+	// m %= 60
+	// return Clock{h, m}
+	clock := Clock{0, 0}
+	clock = clock.Add(h*60 + m)
+	return clock
+
 }
 
 func (c Clock) Add(m int) Clock {
