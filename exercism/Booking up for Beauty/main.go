@@ -11,6 +11,8 @@ func main() {
 	fmt.Println(Schedule("11/22/2022 9:00:00"))
 	fmt.Println(HasPassed("11/22/2021 9:00:00"))
 	fmt.Println(IsAfternoonAppointment("11/22/2022 9:00:00"))
+	fmt.Println(Description("11/22/2022 9:45:00"))
+	fmt.Println(AnniversaryDate())
 }
 
 // Schedule returns a time.Time from a string containing a date.
@@ -48,10 +50,16 @@ func IsAfternoonAppointment(date string) bool {
 
 // Description returns a formatted string of the appointment time.
 func Description(date string) string {
-	panic("Please implement the Description function")
+	appointment, err := time.Parse("1/02/2006 15:04:05", date)
+	if err != nil {
+		panic(err)
+	}
+
+	return fmt.Sprintf("You have an appointment on %s, %s %d, %d, at %v:%v.", appointment.Weekday(), appointment.Month(), appointment.Day(), appointment.Year(), appointment.Hour(), appointment.Minute())
 }
 
 // AnniversaryDate returns a Time with this year's anniversary.
 func AnniversaryDate() time.Time {
-	panic("Please implement the AnniversaryDate function")
+	anniversary := time.Date(2020, time.Month(9), 15, 0, 0, 0, 0, time.UTC)
+	return anniversary
 }
