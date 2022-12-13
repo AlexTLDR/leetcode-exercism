@@ -6,6 +6,7 @@ func main() {
 	fmt.Println(InterestRate(200.75))
 	fmt.Println(Interest(200.75))
 	fmt.Println(AnnualBalanceUpdate(200.75))
+	fmt.Println(YearsBeforeDesiredBalance(200.75, 214.88))
 }
 
 // InterestRate returns the interest rate for the provided balance.
@@ -34,5 +35,10 @@ func AnnualBalanceUpdate(balance float64) float64 {
 
 // YearsBeforeDesiredBalance calculates the minimum number of years required to reach the desired balance.
 func YearsBeforeDesiredBalance(balance, targetBalance float64) int {
-	panic("Please implement the YearsBeforeDesiredBalance function")
+	years := 0
+	for balance < targetBalance {
+		balance = AnnualBalanceUpdate(balance)
+		years++
+	}
+	return years
 }
