@@ -5,6 +5,7 @@ import "fmt"
 func main() {
 	fmt.Println(InterestRate(200.75))
 	fmt.Println(Interest(200.75))
+	fmt.Println(AnnualBalanceUpdate(200.75))
 }
 
 // InterestRate returns the interest rate for the provided balance.
@@ -28,7 +29,7 @@ func Interest(balance float64) float64 {
 
 // AnnualBalanceUpdate calculates the annual balance update, taking into account the interest rate.
 func AnnualBalanceUpdate(balance float64) float64 {
-	panic("Please implement the AnnualBalanceUpdate function")
+	return balance + Interest(balance)
 }
 
 // YearsBeforeDesiredBalance calculates the minimum number of years required to reach the desired balance.
