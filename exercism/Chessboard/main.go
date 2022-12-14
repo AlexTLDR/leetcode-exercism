@@ -33,7 +33,7 @@ func main() {
 	//fmt.Printf("%v, %T\n", A, A)
 	//cb := newChessboard()
 	fmt.Println(CountInFile(board, "A"))
-	//fmt.Println(CountInRank(board))
+	fmt.Println(CountInRank(board, 2))
 
 }
 
@@ -54,8 +54,8 @@ func newChessboard() Chessboard {
 // within the given file.
 func CountInFile(cb Chessboard, file string) int {
 	count := 0
-	for _, v := range cb[file] {
-		if v {
+	for _, element := range cb[file] {
+		if element {
 			count++
 		}
 	}
@@ -65,7 +65,17 @@ func CountInFile(cb Chessboard, file string) int {
 // CountInRank returns how many squares are occupied in the chessboard,
 // within the given rank.
 func CountInRank(cb Chessboard, rank int) int {
-	panic("Please implement CountInRank()")
+	count := 0
+	if rank < 1 || rank > 8 {
+		return count
+	}
+
+	for _, element := range cb {
+		if element[rank-1] {
+			count++
+		}
+	}
+	return count
 }
 
 // CountAll should count how many squares are present in the chessboard.
