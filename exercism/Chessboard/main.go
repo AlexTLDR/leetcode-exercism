@@ -11,31 +11,38 @@ type File []bool
 type Chessboard map[string]File
 
 func main() {
-	var A File = []bool{true, false, true, false, false, false, false, true}
-	var B File = []bool{false, false, false, false, true, false, false, false}
-	var C File = []bool{false, false, true, false, false, false, false, false}
-	var D File = []bool{false, false, false, false, false, false, false, false}
-	var E File = []bool{false, false, false, false, false, true, false, true}
-	var F File = []bool{false, false, false, false, false, false, false, false}
-	var G File = []bool{false, false, false, true, false, false, false, false}
-	var H File = []bool{true, true, true, true, true, true, false, true}
-	board := map[string]File{
-		"A": A,
-		"B": B,
-		"C": C,
-		"D": D,
-		"E": E,
-		"F": F,
-		"G": G,
-		"H": H,
-	}
+	/*
+		these are for me to better understand the structure
+
+		var A File = []bool{true, false, true, false, false, false, false, true}
+		var B File = []bool{false, false, false, false, true, false, false, false}
+		var C File = []bool{false, false, true, false, false, false, false, false}
+		var D File = []bool{false, false, false, false, false, false, false, false}
+		var E File = []bool{false, false, false, false, false, true, false, true}
+		var F File = []bool{false, false, false, false, false, false, false, false}
+		var G File = []bool{false, false, false, true, false, false, false, false}
+		var H File = []bool{true, true, true, true, true, true, false, true}
+		board := map[string]File{
+			"A": A,
+			"B": B,
+			"C": C,
+			"D": D,
+			"E": E,
+			"F": F,
+			"G": G,
+			"H": H,
+		}
+
+		using the NewChessboard func to generate the board as a more elegant way
+	*/
+	board := NewChessboard()
 	fmt.Println(CountInFile(board, "A"))
 	fmt.Println(CountInRank(board, 2))
 	fmt.Println(CountAll(board))
-
+	fmt.Println(CountOccupied(board))
 }
 
-func newChessboard() Chessboard {
+func NewChessboard() Chessboard {
 	return Chessboard{
 		"A": File{true, false, true, false, false, false, false, true},
 		"B": File{false, false, false, false, true, false, false, false},
@@ -88,5 +95,9 @@ func CountAll(cb Chessboard) int {
 
 // CountOccupied returns how many squares are occupied in the chessboard.
 func CountOccupied(cb Chessboard) int {
-	panic("Please implement CountOccupied()")
+	count := 0
+	for key := range cb {
+		count += CountInFile(cb, key)
+	}
+	return count
 }
