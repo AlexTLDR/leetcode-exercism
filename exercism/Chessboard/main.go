@@ -29,11 +29,9 @@ func main() {
 		"G": G,
 		"H": H,
 	}
-	//A = []bool{true}
-	//fmt.Printf("%v, %T\n", A, A)
-	//cb := newChessboard()
 	fmt.Println(CountInFile(board, "A"))
 	fmt.Println(CountInRank(board, 2))
+	fmt.Println(CountAll(board))
 
 }
 
@@ -80,7 +78,12 @@ func CountInRank(cb Chessboard, rank int) int {
 
 // CountAll should count how many squares are present in the chessboard.
 func CountAll(cb Chessboard) int {
-	panic("Please implement CountAll()")
+	count := 0
+	for _, element := range cb {
+
+		count += len(element)
+	}
+	return count
 }
 
 // CountOccupied returns how many squares are occupied in the chessboard.
