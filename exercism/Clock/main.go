@@ -13,25 +13,30 @@ type Clock struct {
 
 func main() {
 	// fmt.Println(New(144, 60))
-	// c := Clock{23, 15}
-	// fmt.Println(c.Add(50))
+	//c := Clock{23, 15}
+
 	// fmt.Println(c.String())
-	fmt.Println(New(0, 160))
+	//fmt.Println(New(0, 160))
+
+	c := New(0, 10)
+	fmt.Println(c)
+	//fmt.Println(c.Add(50))
+	fmt.Println(c.Add(-20))
+	fmt.Println(c.Subtract(20))
 }
 
 func New(h, m int) Clock {
-	// if m%60 == 0 {
-	// 	h = h + m/60
-	// }
-	// fmt.Println(h)
-	// h %= 24
-	// fmt.Println(h)
-	// m %= 60
-	// return Clock{h, m}
-	clock := Clock{0, 0}
-	clock = clock.Add(h*60 + m)
-	return clock
-
+	h += m / 60
+	m = m % 60
+	if m < 0 {
+		m += 60
+		h -= 1
+	}
+	h = h % 24
+	if h < 0 {
+		h += 24
+	}
+	return Clock{h, m}
 }
 
 func (c Clock) Add(m int) Clock {
@@ -44,10 +49,26 @@ func (c Clock) Add(m int) Clock {
 		c.hours %= 24
 	}
 	return c
+
 }
 
 func (c Clock) Subtract(m int) Clock {
-	panic("Please implement the Subtract function")
+	// c.minutes -= m
+	// if c.minutes < 0 {
+	// 	fmt.Println("from subtract", c.hours, c.minutes)
+	// 	c.hours -= 1 + c.minutes/60
+	// 	fmt.Println(c.hours)
+	// 	c.minutes = 60 + c.minutes%60
+	// 	if c.minutes == 60 {
+	// 		c.minutes = 0
+	// 		c.hours += 1
+	// 	}
+	// }
+	// if c.hours >= 24 {
+	// 	c.hours %= 24
+	// }
+	return c.Add(-m)
+
 }
 
 func (c Clock) String() string {
