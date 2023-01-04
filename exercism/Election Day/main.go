@@ -10,6 +10,8 @@ func main() {
 	var nilCounter *int
 	fmt.Println(VoteCount(voteCounter))
 	fmt.Println(VoteCount(nilCounter))
+	IncrementVoteCount(voteCounter, 2)
+	fmt.Println(*voteCounter)
 }
 
 // NewVoteCounter returns a new vote counter with
@@ -28,7 +30,7 @@ func VoteCount(counter *int) int {
 
 // IncrementVoteCount increments the value in a vote counter.
 func IncrementVoteCount(counter *int, increment int) {
-	panic("Please implement the IncrementVoteCount() function")
+	*counter = *counter + increment
 }
 
 // // NewElectionResult creates a new election result.
