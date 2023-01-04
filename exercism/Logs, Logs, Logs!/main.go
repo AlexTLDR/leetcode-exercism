@@ -6,10 +6,8 @@ import "fmt"
 
 func main() {
 	fmt.Println(Application("❗ recommended search product 🔍"))
-
-	log := "please replace '👎' with '👍'"
-	fmt.Println(Replace(log, '👎', '👍'))
-
+	fmt.Println(Replace("please replace '👎' with '👍'", '👎', '👍'))
+	fmt.Println(WithinLimit("exercism❗", 9))
 }
 
 // Application identifies the application emitting the given log.
@@ -44,5 +42,10 @@ func Replace(log string, oldRune, newRune rune) string {
 // WithinLimit determines whether or not the number of characters in log is
 // within the limit.
 func WithinLimit(log string, limit int) bool {
-	panic("Please implement the WithinLimit() function")
+	for i := range log {
+		if i+1 > limit {
+			return false
+		}
+	}
+	return true
 }
