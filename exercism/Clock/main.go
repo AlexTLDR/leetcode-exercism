@@ -11,11 +11,11 @@ type Clock struct {
 
 func main() {
 
-	c := New(0, 10)
-	fmt.Println(c)
-	//fmt.Println(c.Add(50))
-	fmt.Println(c.Add(-20))
-	fmt.Println(c.Subtract(20))
+	c := New(27, 80)
+	fmt.Println("New: ", c)
+	fmt.Println("Add: ", c.Add(50))
+	fmt.Println("Subtract: ", c.Subtract(120))
+	fmt.Println("Display: ", c.String())
 }
 
 func New(h, m int) Clock {
