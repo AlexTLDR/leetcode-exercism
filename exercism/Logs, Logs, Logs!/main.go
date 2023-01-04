@@ -1,14 +1,26 @@
-https://exercism.org/tracks/go/exercises/logs-logs-logs
+// https://exercism.org/tracks/go/exercises/logs-logs-logs
 
 package main
 
-func main(){
+import "fmt"
 
+func main() {
+	fmt.Println(Application("❗ recommended search product 🔍"))
 }
 
 // Application identifies the application emitting the given log.
 func Application(log string) string {
-	panic("Please implement the Application() function")
+	for _, char := range log {
+		switch {
+		case char == '❗':
+			return "recommendation"
+		case char == '🔍':
+			return "search"
+		case char == '☀':
+			return "weather"
+		}
+	}
+	return "default"
 }
 
 // Replace replaces all occurrences of old with new, returning the modified log
