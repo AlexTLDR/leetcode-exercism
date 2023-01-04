@@ -49,7 +49,6 @@ func (c Clock) Add(m int) Clock {
 		c.hours %= 24
 	}
 	return c
-
 }
 
 func (c Clock) Subtract(m int) Clock {
