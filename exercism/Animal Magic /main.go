@@ -2,13 +2,18 @@
 
 package main
 
+import (
+	"math/rand"
+	"time"
+)
+
 func main() {
 
 }
 
 // SeedWithTime seeds math/rand with the current computer time.
 func SeedWithTime() {
-	panic("Please implement the SeedWithTime function")
+	rand.Seed(time.Now().UnixNano())
 }
 
 // RollADie returns a random int d with 1 <= d <= 20.
