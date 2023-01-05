@@ -9,6 +9,11 @@ type ElectionResult struct {
 	Votes int
 }
 
+var finalResults = map[string]int{
+	"Mary": 10,
+	"John": 51,
+}
+
 func main() {
 	votes := 3
 	voteCounter := &votes
@@ -18,9 +23,14 @@ func main() {
 	IncrementVoteCount(voteCounter, 2)
 	fmt.Println(*voteCounter)
 
-	var result *ElectionResult
-	NewElectionResult("Alex", 100)
-	fmt.Printf("Election result: %+v\n", result)
+	// var result *ElectionResult
+	// result.Name = "Alex"
+	// result.Votes = 0
+	// NewElectionResult("Alex", 100)
+	// fmt.Printf("Election result: %+v\n", result)
+	//DisplayResult(result)
+	DecrementVotesOfCandidate(finalResults, "Mary")
+	fmt.Println(finalResults)
 }
 
 // NewVoteCounter returns a new vote counter with
@@ -47,12 +57,12 @@ func NewElectionResult(candidateName string, votes int) *ElectionResult {
 	return &ElectionResult{Name: candidateName, Votes: votes}
 }
 
-// // DisplayResult creates a message with the result to be displayed.
-// func DisplayResult(result *ElectionResult) string {
-// 	panic("Please implement the DisplayResult() function")
-// }
+// DisplayResult creates a message with the result to be displayed.
+func DisplayResult(result *ElectionResult) string {
+	return fmt.Sprintf("%s (%d)", result.Name, result.Votes)
+}
 
 // DecrementVotesOfCandidate decrements by one the vote count of a candidate in a map.
 func DecrementVotesOfCandidate(results map[string]int, candidate string) {
-	panic("Please implement the DecrementVotesOfCandidate() function")
+	results[candidate]--
 }
