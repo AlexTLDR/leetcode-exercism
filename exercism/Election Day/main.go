@@ -4,6 +4,11 @@ package main
 
 import "fmt"
 
+type ElectionResult struct {
+	Name  string
+	Votes int
+}
+
 func main() {
 	votes := 3
 	voteCounter := &votes
@@ -12,6 +17,10 @@ func main() {
 	fmt.Println(VoteCount(nilCounter))
 	IncrementVoteCount(voteCounter, 2)
 	fmt.Println(*voteCounter)
+
+	var result *ElectionResult
+	NewElectionResult("Alex", 100)
+	fmt.Printf("Election result: %+v\n", result)
 }
 
 // NewVoteCounter returns a new vote counter with
@@ -33,10 +42,10 @@ func IncrementVoteCount(counter *int, increment int) {
 	*counter = *counter + increment
 }
 
-// // NewElectionResult creates a new election result.
-// func NewElectionResult(candidateName string, votes int) *ElectionResult {
-// 	panic("Please implement the NewElectionResult() function")
-// }
+// NewElectionResult creates a new election result.
+func NewElectionResult(candidateName string, votes int) *ElectionResult {
+	return &ElectionResult{Name: candidateName, Votes: votes}
+}
 
 // // DisplayResult creates a message with the result to be displayed.
 // func DisplayResult(result *ElectionResult) string {
