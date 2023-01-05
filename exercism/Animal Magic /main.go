@@ -9,8 +9,9 @@ import (
 )
 
 func main() {
+	SeedWithTime()
 	fmt.Println(RollADie())
-
+	fmt.Println(GenerateWandEnergy())
 }
 
 // SeedWithTime seeds math/rand with the current computer time.
@@ -20,15 +21,16 @@ func SeedWithTime() {
 
 // RollADie returns a random int d with 1 <= d <= 20.
 func RollADie() int {
-	SeedWithTime()
-	a, b := 1, 20
-	n := a + rand.Intn(b-a+1)
+	//SeedWithTime()
+	min, max := 1, 20
+	n := min + rand.Intn(max-min+1)
 	return n
 }
 
 // GenerateWandEnergy returns a random float64 f with 0.0 <= f < 12.0.
 func GenerateWandEnergy() float64 {
-	panic("Please implement the GenerateWandEnergy function")
+	min, max := 0.0, 12.0
+	return min + rand.Float64()*(max-min)
 }
 
 // ShuffleAnimals returns a slice with all eight animal strings in random order.
