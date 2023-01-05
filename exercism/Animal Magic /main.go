@@ -3,11 +3,13 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
 
 func main() {
+	fmt.Println(RollADie())
 
 }
 
@@ -18,7 +20,10 @@ func SeedWithTime() {
 
 // RollADie returns a random int d with 1 <= d <= 20.
 func RollADie() int {
-	panic("Please implement the RollADie function")
+	SeedWithTime()
+	a, b := 1, 20
+	n := a + rand.Intn(b-a+1)
+	return n
 }
 
 // GenerateWandEnergy returns a random float64 f with 0.0 <= f < 12.0.
