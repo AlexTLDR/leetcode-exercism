@@ -67,6 +67,13 @@ func CanFinish(car Car, track Track) bool {
 
 // TODO: define the 'Drive()' method
 
+func (car *Car) Drive() {
+	if car.battery >= car.batteryDrain {
+		car.battery -= car.batteryDrain
+		car.distance += car.speed
+	}
+}
+
 // TODO: define the 'DisplayDistance() string' method
 
 // TODO: define the 'DisplayBattery() string' method
