@@ -12,6 +12,7 @@ func main() {
 	SeedWithTime()
 	fmt.Println(RollADie())
 	fmt.Println(GenerateWandEnergy())
+	fmt.Println(ShuffleAnimals())
 }
 
 // SeedWithTime seeds math/rand with the current computer time.
@@ -35,5 +36,7 @@ func GenerateWandEnergy() float64 {
 
 // ShuffleAnimals returns a slice with all eight animal strings in random order.
 func ShuffleAnimals() []string {
-	panic("Please implement the ShuffleAnimals function")
+	animals := []string{"ant", "beaver", "cat", "dog", "elephant", "fox", "giraffe", "hedgehog"}
+	rand.Shuffle(len(animals), func(i, j int) { animals[i], animals[j] = animals[j], animals[i] })
+	return animals
 }
