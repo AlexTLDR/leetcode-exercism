@@ -23,12 +23,16 @@ func main() {
 	IncrementVoteCount(voteCounter, 2)
 	fmt.Println(*voteCounter)
 
-	// var result *ElectionResult
-	// result.Name = "Alex"
-	// result.Votes = 0
-	// NewElectionResult("Alex", 100)
-	// fmt.Printf("Election result: %+v\n", result)
-	//DisplayResult(result)
+	//var result *ElectionResult
+	result := &ElectionResult{
+		Name:  "",
+		Votes: 0,
+	}
+	result.Name = "Alex"
+	result.Votes = 1
+	NewElectionResult("Alex", 100)
+	fmt.Printf("Election result: %+v\n", result)
+	DisplayResult(result)
 	DecrementVotesOfCandidate(finalResults, "Mary")
 	fmt.Println(finalResults)
 }
