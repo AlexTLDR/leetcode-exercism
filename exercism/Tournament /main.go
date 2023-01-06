@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -31,6 +32,14 @@ func ReadFile() {
 
 }
 
+func WriteFile(key string, teams map[string]int) {
+	f, err := os.Create("output.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer f.Close()
+}
+
 func Tally(reader io.Reader, writer io.Writer) error {
 
 	teams := map[string]int{
@@ -49,10 +58,8 @@ func Tally(reader io.Reader, writer io.Writer) error {
 	for _, line := range fileLines {
 
 		slice := strings.Split(line, ";")
-		//fmt.Println("line number: ", slice)
 		switch slice[2] {
 		case "win":
-			//fmt.Println(slice[0])
 			teams[slice[0]] += 3
 		case "draw":
 			teams[slice[0]] += 1
@@ -61,7 +68,31 @@ func Tally(reader io.Reader, writer io.Writer) error {
 			teams[slice[1]] += 3
 		}
 	}
-	fmt.Println(teams)
-	fmt.Println(fileLines)
+
+	// file output
+	f, err := os.Create("output.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer f.Close()
+
+	// map sorting
+	keys := make([]string, 0, len(teams))
+	for k := range teams {
+		keys = append(keys, k)
+	}
+	sort.Sort(sort.Reverse(sort.StringSlice(keys)))
+	for _, k := range keys {
+		fmt.Println(k, teams[k])
+		_, err := f.WriteString(k)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+	}
+
+	//fmt.Println(teams)
+	// fmt.Println(fileLines)
+
 	return nil
 }
