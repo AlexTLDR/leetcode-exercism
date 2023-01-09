@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println(ToRomanNumeral(3145))
+	fmt.Println(ToRomanNumeral(45))
 }
 
 func ToRomanNumeral(input int) (string, error) {
@@ -51,14 +51,15 @@ func ToRomanNumeral(input int) (string, error) {
 	}
 	roman := ""
 	stringInput := strconv.Itoa(input)
-	switch len(stringInput) {
-	case 3:
-		stringInput = "0" + stringInput
-	case 2:
-		stringInput = "00" + stringInput
-	case 1:
-		stringInput = "000" + stringInput
-	}
+	stringInput = strings.Repeat("0", 4-len(stringInput)) + stringInput
+	// switch len(stringInput) {
+	// case 3:
+	// 	stringInput = "0" + stringInput
+	// case 2:
+	// 	stringInput = "00" + stringInput
+	// case 1:
+	// 	stringInput = "000" + stringInput
+	// }
 	for i, v := range stringInput {
 		s := string(v)
 		si, _ := strconv.Atoi(s)
