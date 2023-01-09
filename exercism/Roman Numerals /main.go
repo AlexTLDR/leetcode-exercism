@@ -9,10 +9,8 @@ import (
 )
 
 func main() {
-	ToRomanNumeral(3045)
+	fmt.Println(ToRomanNumeral(3145))
 }
-
-// I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII
 
 func ToRomanNumeral(input int) (string, error) {
 	if input < 1 || input > 3999 {
@@ -51,22 +49,30 @@ func ToRomanNumeral(input int) (string, error) {
 		8: "VIII",
 		9: "IX",
 	}
-
+	roman := ""
 	stringInput := strconv.Itoa(input)
+	switch len(stringInput) {
+	case 3:
+		stringInput = "0" + stringInput
+	case 2:
+		stringInput = "00" + stringInput
+	case 1:
+		stringInput = "000" + stringInput
+	}
 	for i, v := range stringInput {
 		s := string(v)
 		si, _ := strconv.Atoi(s)
 		switch i {
 		case 0:
-			fmt.Println(strings.Repeat("M", si))
+			roman = strings.Repeat("M", si)
 		case 1:
-			fmt.Println(hundreds[si])
+			roman = roman + hundreds[si]
 		case 2:
-			fmt.Println(tens[si])
+			roman = roman + tens[si]
 		case 3:
-			fmt.Println(numbers[si])
+			roman = roman + numbers[si]
 		}
 
 	}
-	return "", fmt.Errorf("The number %d is undefined", input)
+	return roman, nil
 }
