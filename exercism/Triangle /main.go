@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fmt.Println(KindFromSides(0, 10, 10))
+	fmt.Println(KindFromSides(7, 3, 2))
 }
 
 // Notice KindFromSides() returns this type. Pick a suitable data type.
@@ -25,7 +25,9 @@ const (
 func KindFromSides(a, b, c float64) Kind {
 	var k Kind
 	switch {
-	case a <= 0 || b <= 0 || c <= 0:
+	case (a <= 0 || b <= 0 || c <= 0):
+		k = NaT
+	case a+b < c || a+c < b || b+c < a:
 		k = NaT
 	case a == b && b == c && a == c:
 		k = Equ
