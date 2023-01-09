@@ -5,10 +5,11 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
-
+	ToRomanNumeral(3045)
 }
 
 // I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII
@@ -17,30 +18,53 @@ func ToRomanNumeral(input int) (string, error) {
 	if input < 1 || input > 3999 {
 		return "", fmt.Errorf("The number %d is undefined", input)
 	}
-
-	// mappings := map[int]string{
-	// 	1000: "M",
-	// 	900:  "CM",
-	// 	500:  "D",
-	// 	400:  "CD",
-	// 	100:  "C",
-	// 	90:   "XC",
-	// 	50:   "L",
-	// 	40:   "XL",
-	// 	10:   "X",
-	// 	9:    "IX",
-	// 	5:    "V",
-	// 	4:    "IV",
-	// 	1:    "I",
-	// }
+	hundreds := map[int]string{
+		1: "C",
+		2: "CC",
+		3: "CCC",
+		4: "CD",
+		5: "D",
+		6: "DC",
+		7: "DCC",
+		8: "DCCC",
+		9: "CM",
+	}
+	tens := map[int]string{
+		1: "X",
+		2: "XX",
+		3: "XXX",
+		4: "XL",
+		5: "L",
+		6: "LX",
+		7: "LXX",
+		8: "LXXX",
+		9: "XC",
+	}
+	numbers := map[int]string{
+		1: "I",
+		2: "II",
+		3: "III",
+		4: "IV",
+		5: "V",
+		6: "VI",
+		7: "VII",
+		8: "VIII",
+		9: "IX",
+	}
 
 	stringInput := strconv.Itoa(input)
 	for i, v := range stringInput {
+		s := string(v)
+		si, _ := strconv.Atoi(s)
 		switch i {
 		case 0:
+			fmt.Println(strings.Repeat("M", si))
 		case 1:
+			fmt.Println(hundreds[si])
 		case 2:
+			fmt.Println(tens[si])
 		case 3:
+			fmt.Println(numbers[si])
 		}
 
 	}
