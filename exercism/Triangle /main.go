@@ -25,7 +25,7 @@ const (
 func KindFromSides(a, b, c float64) Kind {
 	var k Kind
 	switch {
-	case (a <= 0 || b <= 0 || c <= 0):
+	case a <= 0 || b <= 0 || c <= 0:
 		k = NaT
 	case a+b < c || a+c < b || b+c < a:
 		k = NaT
@@ -36,6 +36,5 @@ func KindFromSides(a, b, c float64) Kind {
 	case a != b && a != c && b != c:
 		k = Sca
 	}
-
 	return k
 }
