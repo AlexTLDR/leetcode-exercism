@@ -2,7 +2,9 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println(KindFromSides(0, 10, 10))
@@ -22,19 +24,14 @@ const (
 // KindFromSides should have a comment documenting it.
 func KindFromSides(a, b, c float64) Kind {
 	var k Kind
-	if a <= 0 || b <= 0 || c <= 0 {
+	switch {
+	case a <= 0 || b <= 0 || c <= 0:
 		k = NaT
-	}
-
-	if a == b && b == c && a == c {
+	case a == b && b == c && a == c:
 		k = Equ
-	}
-
-	if a == b || a == c || b == c {
+	case a == b || a == c || b == c:
 		k = Iso
-	}
-
-	if a != b && a != c && b != c {
+	case a != b && a != c && b != c:
 		k = Sca
 	}
 
