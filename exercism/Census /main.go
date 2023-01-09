@@ -15,6 +15,22 @@ func main() {
 	resident.Delete()
 	fmt.Println(resident)
 
+	name1 := "Matthew Sanabria"
+	age1 := 29
+	address1 := map[string]string{"street": "Main St."}
+
+	resident1 := NewResident(name1, age1, address1)
+
+	name2 := "Rob Pike"
+	age2 := 0
+	address2 := make(map[string]string)
+
+	resident2 := NewResident(name2, age2, address2)
+
+	residents := []*Resident{resident1, resident2}
+
+	fmt.Println(Count(residents))
+
 }
 
 // Resident represents a resident in this city.
@@ -50,5 +66,11 @@ func (r *Resident) Delete() {
 
 // Count counts all residents that have provided the required information.
 func Count(residents []*Resident) int {
-	panic("Please implement Count.")
+	count := 0
+	for _, v := range residents {
+		if v.Name != "" && v.Age != 0 && v.Address != nil {
+			count++
+		}
+	}
+	return count
 }
