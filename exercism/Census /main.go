@@ -5,7 +5,13 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(NewResident("Matthew Sanabria", 29, map[string]string{"street": "Main St."}))
+
+	name := "Matthew Sanabria"
+	age := 0
+	address := make(map[string]string)
+	resident := NewResident(name, age, address)
+	fmt.Println(resident)
+	fmt.Println(resident.HasRequiredInfo())
 
 }
 
@@ -27,7 +33,10 @@ func NewResident(name string, age int, address map[string]string) *Resident {
 
 // HasRequiredInfo determines if a given resident has all of the required information.
 func (r *Resident) HasRequiredInfo() bool {
-	panic("Please implement HasRequiredInfo.")
+	if r.Name == "" || r.Address["street"] == "" {
+		return false
+	}
+	return true
 }
 
 // Delete deletes a resident's information.
