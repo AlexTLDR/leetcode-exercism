@@ -13,7 +13,7 @@ type DNA string
 
 func main() {
 
-	fmt.Println(DNA.Counts("A"))
+	fmt.Println(DNA.Counts("AX"))
 }
 
 // Counts generates a histogram of valid nucleotides in the given DNA.
@@ -32,9 +32,10 @@ func (d DNA) Counts() (Histogram, error) {
 
 	for _, v := range d {
 		if _, ok := h[rune(v)]; ok {
-			h[rune(v)] += 1
+			h[rune(v)]++
+		} else {
+			return h, fmt.Errorf("%s is not a valid DNA", string(v))
 		}
 	}
 	return h, nil
-
 }
