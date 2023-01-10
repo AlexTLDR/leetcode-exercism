@@ -52,14 +52,6 @@ func ToRomanNumeral(input int) (string, error) {
 	roman := ""
 	stringInput := strconv.Itoa(input)
 	stringInput = strings.Repeat("0", 4-len(stringInput)) + stringInput
-	// switch len(stringInput) {
-	// case 3:
-	// 	stringInput = "0" + stringInput
-	// case 2:
-	// 	stringInput = "00" + stringInput
-	// case 1:
-	// 	stringInput = "000" + stringInput
-	// }
 	for i, v := range stringInput {
 		s := string(v)
 		si, _ := strconv.Atoi(s)
