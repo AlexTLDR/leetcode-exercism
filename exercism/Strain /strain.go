@@ -15,13 +15,31 @@ func (i Ints) Keep(filter func(int) bool) Ints {
 }
 
 func (i Ints) Discard(filter func(int) bool) Ints {
-	panic("Please implement the Discard function")
+	discard := []int{}
+	for _, v := range i {
+		if filter(v) {
+			discard = append(discard, v)
+		}
+	}
+	return discard
 }
 
 func (l Lists) Keep(filter func([]int) bool) Lists {
-	panic("Please implement the Keep function")
+	keep := [][]int{}
+	for _, v := range l {
+		if filter(v) {
+			keep = append(keep, v)
+		}
+	}
+	return keep
 }
 
 func (s Strings) Keep(filter func(string) bool) Strings {
-	panic("Please implement the Keep function")
+	keep := []string{}
+	for _, v := range s {
+		if filter(v) {
+			keep = append(keep, v)
+		}
+	}
+	return keep
 }
