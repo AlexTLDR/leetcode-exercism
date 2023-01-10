@@ -5,7 +5,7 @@ type Lists [][]int
 type Strings []string
 
 func (i Ints) Keep(filter func(int) bool) Ints {
-	keep := []int{}
+	var keep []int
 	for _, v := range i {
 		if filter(v) {
 			keep = append(keep, v)
@@ -15,9 +15,9 @@ func (i Ints) Keep(filter func(int) bool) Ints {
 }
 
 func (i Ints) Discard(filter func(int) bool) Ints {
-	discard := []int{}
+	var discard []int
 	for _, v := range i {
-		if filter(v) {
+		if !filter(v) {
 			discard = append(discard, v)
 		}
 	}
@@ -25,7 +25,7 @@ func (i Ints) Discard(filter func(int) bool) Ints {
 }
 
 func (l Lists) Keep(filter func([]int) bool) Lists {
-	keep := [][]int{}
+	var keep [][]int
 	for _, v := range l {
 		if filter(v) {
 			keep = append(keep, v)
@@ -35,7 +35,7 @@ func (l Lists) Keep(filter func([]int) bool) Lists {
 }
 
 func (s Strings) Keep(filter func(string) bool) Strings {
-	keep := []string{}
+	var keep []string
 	for _, v := range s {
 		if filter(v) {
 			keep = append(keep, v)
