@@ -9,7 +9,7 @@ import (
 
 func main() {
 	sentence1 := "The quick brown fox jumps over the lazy dog."
-	sentence2 := "Not a pangram"
+	sentence2 := "Not a pangram Not a pangram Not a pangram Not a pangram"
 	fmt.Println(IsPangram(sentence1))
 	fmt.Println(IsPangram(sentence2))
 }
@@ -49,6 +49,17 @@ func IsPangram(input string) bool {
 		return false
 	}
 	input = strings.ToLower(input)
+	for _, v := range input {
+		if _, ok := alphabet[rune(v)]; ok {
+			alphabet[rune(v)]++
+		}
+	}
+
+	for _, l := range alphabet {
+		if l == 0 {
+			return false
+		}
+	}
 
 	return true
 }
