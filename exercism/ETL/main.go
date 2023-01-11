@@ -49,5 +49,17 @@ func main() {
 }
 
 func Transform(in map[int][]string) map[string]int {
-	panic("Please implement the Transform function")
+	out := make(map[string]int)
+	//strTMP := []string{}
+	for i, v := range in {
+
+		for _, s := range v {
+			// strTMP = append(strTMP, s)
+			// fmt.Println(strTMP)
+			out[s] = i
+		}
+
+	}
+	fmt.Println(out)
+	return out
 }
