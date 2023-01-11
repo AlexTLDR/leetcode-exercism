@@ -2,7 +2,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	old := map[int][]string{
@@ -15,48 +18,18 @@ func main() {
 		10: {"Q", "Z"},
 	}
 
-	// new := map[string]int{
-	// 	"a": 1,
-	// 	"e": 1,
-	// 	"i": 1,
-	// 	"o": 1,
-	// 	"u": 1,
-	// 	"l": 1,
-	// 	"n": 1,
-	// 	"r": 1,
-	// 	"s": 1,
-	// 	"t": 1,
-	// 	"d": 2,
-	// 	"g": 2,
-	// 	"b": 3,
-	// 	"c": 3,
-	// 	"m": 3,
-	// 	"p": 3,
-	// 	"f": 4,
-	// 	"h": 4,
-	// 	"v": 4,
-	// 	"w": 4,
-	// 	"y": 4,
-	// 	"k": 5,
-	// 	"j": 8,
-	// 	"x": 8,
-	// 	"q": 10,
-	// 	"z": 10,
-	// }
-
-	fmt.Println(Transform(old))
+	new := Transform(old)
+	fmt.Println(new)
 
 }
 
 func Transform(in map[int][]string) map[string]int {
 	out := make(map[string]int)
-	//strTMP := []string{}
+
 	for i, v := range in {
 
 		for _, s := range v {
-			// strTMP = append(strTMP, s)
-			// fmt.Println(strTMP)
-			out[s] = i
+			out[strings.ToLower(s)] = i
 		}
 
 	}
