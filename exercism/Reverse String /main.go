@@ -7,7 +7,7 @@ import "fmt"
 func main() {
 
 	input := "cool"
-	output := Reverse(input)
+	output := Reverse2(input)
 	fmt.Println(output)
 
 }
@@ -18,4 +18,12 @@ func Reverse(input string) string {
 		inputArr[i], inputArr[j] = inputArr[j], inputArr[i]
 	}
 	return string(inputArr)
+}
+
+func Reverse2(input string) string {
+	output := ""
+	for _, r := range input {
+		output = string(r) + output
+	}
+	return output
 }
