@@ -25,8 +25,11 @@ func Detect(subject string, candidates []string) []string {
 	sort.Slice(subjectSlice, func(i, j int) bool {
 		return subjectSlice[i] < subjectSlice[j]
 	})
-	fmt.Println(subjectSlice)
 	for _, v := range candidates {
+		if strings.ToLower(v) == strings.ToLower(subject) {
+			continue
+		}
+
 		vSlice := strings.Split(strings.ToLower(v), "")
 		sort.Slice(vSlice, func(i, j int) bool {
 			return vSlice[i] < vSlice[j]
