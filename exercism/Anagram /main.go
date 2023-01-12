@@ -21,11 +21,20 @@ func main() {
 func Detect(subject string, candidates []string) []string {
 
 	anagrams := []string{}
-	subjectSlice := strings.Split(subject, "")
+	subjectSlice := strings.Split(strings.ToLower(subject), "")
 	sort.Slice(subjectSlice, func(i, j int) bool {
 		return subjectSlice[i] < subjectSlice[j]
 	})
 	fmt.Println(subjectSlice)
+	for _, v := range candidates {
+		vSlice := strings.Split(strings.ToLower(v), "")
+		sort.Slice(vSlice, func(i, j int) bool {
+			return vSlice[i] < vSlice[j]
+		})
+		if SliceCompare(subjectSlice, vSlice) {
+			anagrams = append(anagrams, v)
+		}
+	}
 
 	return anagrams
 }
