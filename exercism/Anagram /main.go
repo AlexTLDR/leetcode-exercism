@@ -2,7 +2,11 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
 
 func main() {
 	target := "stone"
@@ -15,5 +19,26 @@ func main() {
 }
 
 func Detect(subject string, candidates []string) []string {
-	panic("Please implement the Detect function")
+
+	anagrams := []string{}
+	subjectSlice := strings.Split(subject, "")
+	sort.Slice(subjectSlice, func(i, j int) bool {
+		return subjectSlice[i] < subjectSlice[j]
+	})
+	fmt.Println(subjectSlice)
+
+	return anagrams
+}
+
+func SliceCompare(subject, candidate []string) bool {
+	if len(subject) != len(candidate) {
+		return false
+	}
+
+	for i, v := range subject {
+		if v != candidate[i] {
+			return false
+		}
+	}
+	return true
 }
