@@ -27,6 +27,9 @@ var codonMap = map[string]string{
 	"UGA": "STOP",
 }
 
+var ErrInvalidBase = errors.New("ErrInvalidBase")
+var ErrStop = errors.New("ErrStop")
+
 func main() {
 	RNA := "AUGUUUUCU"
 	fmt.Println(FromRNA(RNA))
@@ -37,17 +40,16 @@ func main() {
 
 func FromRNA(rna string) ([]string, error) {
 	rnaSlice := []string{}
-	err := errors.New("RNA invalid")
 	for i := range rna {
 		tmp := ""
 		if (i+1)%3 == 0 {
 			tmp = string(rna[i-2]) + string(rna[i-1]) + string(rna[i])
 			rnaSlice = append(rnaSlice, RNAtoCodon(tmp))
 		}
-		err = nil
+		ErrInvalidBase = nil
 	}
 
-	return rnaSlice, err
+	return rnaSlice, ErrInvalidBase
 }
 
 func FromCodon(codon string) (string, error) {
@@ -56,7 +58,7 @@ func FromCodon(codon string) (string, error) {
 			return v, nil
 		}
 	}
-	return "", errors.New("is not a valid codon")
+	return "", ErrInvalidBase
 }
 
 func RNAtoCodon(codon string) string {
