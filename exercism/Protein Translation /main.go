@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-var codon = map[string]string{
+var codonMap = map[string]string{
 	"AUG": "Methionine",
 	"UUU": "Phenylalanine",
 	"UUC": "Phenylalanine",
@@ -29,6 +29,9 @@ var codon = map[string]string{
 func main() {
 	RNA := "AUGUUUUCU"
 	fmt.Println(FromRNA(RNA))
+
+	codon := "UUU"
+	fmt.Println(FromCodon(codon))
 }
 
 func FromRNA(rna string) ([]string, error) {
@@ -54,5 +57,10 @@ func FromRNA(rna string) ([]string, error) {
 }
 
 func FromCodon(codon string) (string, error) {
-	panic("Please implement the FromCodon function")
+	for k, v := range codonMap {
+		if k == codon {
+			return v, nil
+		}
+	}
+	return "", fmt.Errorf("%s is not a valid codon", codon)
 }
