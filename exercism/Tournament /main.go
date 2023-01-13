@@ -33,7 +33,7 @@ func (a ByPoints) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByPoints) Less(i, j int) bool { return a[i].P > a[j].P }
 
 func (t team) String() string {
-	return fmt.Sprintf("(%v name) %v %v %v %v %v", t.name, t.MP, t.W, t.D, t.L, t.P)
+	return fmt.Sprintf("%v %v %v %v %v %v\n", t.name, t.MP, t.W, t.D, t.L, t.P)
 }
 
 func main() {
@@ -82,11 +82,19 @@ func Tally(reader io.Reader, writer io.Writer) error {
 			home.P += 3
 			away.MP += 1
 			away.L += 1
-			// case "draw":
-			// 	teams[slice[0]] += 1
-			// 	teams[slice[1]] += 1
-			// case "loss":
-			// 	teams[slice[1]] += 3
+		case "draw":
+			home.MP += 1
+			away.MP += 1
+			home.D += 1
+			away.D += 1
+			home.P += 1
+			away.P += 1
+		case "loss":
+			home.MP += 1
+			away.MP += 1
+			home.L += 1
+			away.W += 1
+			away.P += 3
 		}
 		teams[slice[0]] = home
 		teams[slice[1]] = away
