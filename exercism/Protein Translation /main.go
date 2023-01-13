@@ -3,6 +3,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -36,24 +37,17 @@ func main() {
 
 func FromRNA(rna string) ([]string, error) {
 	rnaSlice := []string{}
-	// res := ""
-	// for i, r := range rna {
-	// 	res = res + string(r)
-	// 	fmt.Printf("i %d r %c\n", i, r)
-	// 	if i > 0 && (i+1)%3 == 0 {
-	// 		fmt.Printf("=>(%d) '%v'\n", i, res)
-	// 	}
-	// }
-
+	err := errors.New("RNA invalid")
 	for i := range rna {
 		tmp := ""
 		if (i+1)%3 == 0 {
 			tmp = string(rna[i-2]) + string(rna[i-1]) + string(rna[i])
-			fmt.Println(tmp)
+			rnaSlice = append(rnaSlice, RNAtoCodon(tmp))
 		}
+		err = nil
 	}
 
-	return rnaSlice, fmt.Errorf("RNA invalid")
+	return rnaSlice, err
 }
 
 func FromCodon(codon string) (string, error) {
@@ -62,5 +56,14 @@ func FromCodon(codon string) (string, error) {
 			return v, nil
 		}
 	}
-	return "", fmt.Errorf("%s is not a valid codon", codon)
+	return "", errors.New("is not a valid codon")
+}
+
+func RNAtoCodon(codon string) string {
+	for k, v := range codonMap {
+		if k == codon {
+			return v
+		}
+	}
+	return ""
 }
