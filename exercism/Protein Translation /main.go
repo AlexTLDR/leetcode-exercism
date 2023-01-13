@@ -13,10 +13,10 @@ var codonMap = map[string]string{
 	"UUC": "Phenylalanine",
 	"UUA": "Leucine",
 	"UUG": "Leucine",
-	"UCU": "Phenylalanine",
-	"UCC": "Phenylalanine",
-	"UCA": "Phenylalanine",
-	"UCG": "Phenylalanine",
+	"UCU": "Serine",
+	"UCC": "Serine",
+	"UCA": "Serine",
+	"UCG": "Serine",
 	"UAU": "Tyrosine",
 	"UAC": "Tyrosine",
 	"UGU": "Cysteine",
@@ -31,10 +31,10 @@ var ErrInvalidBase = errors.New("ErrInvalidBase")
 var ErrStop = errors.New("ErrStop")
 
 func main() {
-	RNA := "AUGUUUUCU"
+	RNA := "AUGUUUUCUUGA"
 	fmt.Println(FromRNA(RNA))
 
-	codon := "UUU"
+	codon := "UGA"
 	fmt.Println(FromCodon(codon))
 }
 
@@ -55,6 +55,9 @@ func FromRNA(rna string) ([]string, error) {
 func FromCodon(codon string) (string, error) {
 	for k, v := range codonMap {
 		if k == codon {
+			if v == "STOP" {
+				return v, ErrStop
+			}
 			return v, nil
 		}
 	}
