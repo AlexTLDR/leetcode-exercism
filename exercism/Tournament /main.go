@@ -17,6 +17,25 @@ const (
 	loss = 0
 )
 
+type team struct {
+	name string
+	MP   int
+	W    int
+	D    int
+	L    int
+	P    int
+}
+
+type ByPoints []team
+
+func (a ByPoints) Len() int           { return len(a) }
+func (a ByPoints) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByPoints) Less(i, j int) bool { return a[i].P > a[j].P }
+
+func (t team) String() string {
+	return fmt.Sprintf("(%v name) %v %v %v %v %v", t.name, t.MP, t.W, t.D, t.L, t.P)
+}
+
 func main() {
 	ReadFile()
 }
@@ -42,12 +61,8 @@ func WriteFile(key string, teams map[string]int) {
 
 func Tally(reader io.Reader, writer io.Writer) error {
 
-	teams := map[string]int{
-		"Allegoric Alaskans":      0,
-		"Blithering Badgers":      0,
-		"Devastating Donkeys":     0,
-		"Courageous Californians": 0,
-	}
+	teams := map[string]team{}
+
 	fileScanner := bufio.NewScanner(reader)
 	fileScanner.Split(bufio.ScanLines)
 	fileLines := []string{}
@@ -58,15 +73,23 @@ func Tally(reader io.Reader, writer io.Writer) error {
 	for _, line := range fileLines {
 
 		slice := strings.Split(line, ";")
+		home := teams[slice[0]]
+		away := teams[slice[1]]
 		switch slice[2] {
 		case "win":
-			teams[slice[0]] += 3
-		case "draw":
-			teams[slice[0]] += 1
-			teams[slice[1]] += 1
-		case "loss":
-			teams[slice[1]] += 3
+			home.MP += 1
+			home.W += 1
+			home.P += 3
+			away.MP += 1
+			away.L += 1
+			// case "draw":
+			// 	teams[slice[0]] += 1
+			// 	teams[slice[1]] += 1
+			// case "loss":
+			// 	teams[slice[1]] += 3
 		}
+		teams[slice[0]] = home
+		teams[slice[1]] = away
 	}
 
 	// file output
@@ -81,18 +104,37 @@ func Tally(reader io.Reader, writer io.Writer) error {
 	for k := range teams {
 		keys = append(keys, k)
 	}
-	sort.Sort(sort.Reverse(sort.StringSlice(keys)))
-	for _, k := range keys {
-		fmt.Println(k, teams[k])
-		_, err := f.WriteString(k)
-		if err != nil {
-			fmt.Println(err)
-		}
+	f.WriteString("Team                           | MP |  W |  D |  L |  P\n")
+	// sort.Sort(sort.Reverse(sort.StringSlice(keys)))
+	// for _, k := range keys {
+	// 	fmt.Println(k, teams[k])
+	// 	_, err := f.WriteString(fmt.Sprintf(k))
+	// 	if err != nil {
+	// 		fmt.Println(err)
+	// 	}
 
+	// }
+	teamSlice := []team{}
+	for names, v := range teams {
+		v.name = names
+		teamSlice = append(teamSlice, v)
 	}
+	sort.Sort(ByPoints(teamSlice))
+	for _, v := range teamSlice {
+		f.WriteString(v.String())
+	}
+	fmt.Println(teamSlice)
 
 	//fmt.Println(teams)
 	// fmt.Println(fileLines)
 
 	return nil
 }
+
+/*
+Team                           | MP |  W |  D |  L |  P
+Devastating Donkeys            |  3 |  2 |  1 |  0 |  7
+Allegoric Alaskans             |  3 |  2 |  0 |  1 |  6
+Blithering Badgers             |  3 |  1 |  0 |  2 |  3
+Courageous Californians        |  3 |  0 |  1 |  2 |  1
+*/
