@@ -31,7 +31,7 @@ var ErrInvalidBase = errors.New("ErrInvalidBase")
 var ErrStop = errors.New("ErrStop")
 
 func main() {
-	RNA := "AUGUUUUCUUGA"
+	RNA := "UGGUGUUAUUAAUGGUUU"
 	fmt.Println(FromRNA(RNA))
 
 	codon := "UGA"
@@ -41,15 +41,18 @@ func main() {
 func FromRNA(rna string) ([]string, error) {
 	rnaSlice := []string{}
 	for i := range rna {
-		tmp := ""
 		if (i+1)%3 == 0 {
-			tmp = string(rna[i-2]) + string(rna[i-1]) + string(rna[i])
-			rnaSlice = append(rnaSlice, RNAtoCodon(tmp))
+			tmp, ok := FromCodon(string(rna[i-2]) + string(rna[i-1]) + string(rna[i]))
+			if ok == ErrInvalidBase {
+				return rnaSlice, ErrInvalidBase
+			} else if ok == ErrStop {
+				return rnaSlice, nil
+			}
+			rnaSlice = append(rnaSlice, tmp)
 		}
-		ErrInvalidBase = nil
 	}
 
-	return rnaSlice, ErrInvalidBase
+	return rnaSlice, nil
 }
 
 func FromCodon(codon string) (string, error) {
@@ -62,13 +65,4 @@ func FromCodon(codon string) (string, error) {
 		}
 	}
 	return "", ErrInvalidBase
-}
-
-func RNAtoCodon(codon string) string {
-	for k, v := range codonMap {
-		if k == codon {
-			return v
-		}
-	}
-	return ""
 }
