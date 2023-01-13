@@ -33,7 +33,7 @@ func (a ByPoints) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByPoints) Less(i, j int) bool { return a[i].P > a[j].P }
 
 func (t team) String() string {
-	return fmt.Sprintf("%v %v %v %v %v %v\n", t.name, t.MP, t.W, t.D, t.L, t.P)
+	return fmt.Sprintf("%-30s | %2d | %2d | %2d | %2d | %2d\n", t.name, t.MP, t.W, t.D, t.L, t.P)
 }
 
 func main() {
@@ -49,14 +49,6 @@ func ReadFile() {
 	defer readFile.Close()
 	Tally(readFile, nil)
 
-}
-
-func WriteFile(key string, teams map[string]int) {
-	f, err := os.Create("output.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer f.Close()
 }
 
 func Tally(reader io.Reader, writer io.Writer) error {
@@ -100,28 +92,19 @@ func Tally(reader io.Reader, writer io.Writer) error {
 		teams[slice[1]] = away
 	}
 
-	// file output
+	//file output
 	f, err := os.Create("output.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer f.Close()
 
-	// map sorting
+	// sorting
 	keys := make([]string, 0, len(teams))
 	for k := range teams {
 		keys = append(keys, k)
 	}
 	f.WriteString("Team                           | MP |  W |  D |  L |  P\n")
-	// sort.Sort(sort.Reverse(sort.StringSlice(keys)))
-	// for _, k := range keys {
-	// 	fmt.Println(k, teams[k])
-	// 	_, err := f.WriteString(fmt.Sprintf(k))
-	// 	if err != nil {
-	// 		fmt.Println(err)
-	// 	}
-
-	// }
 	teamSlice := []team{}
 	for names, v := range teams {
 		v.name = names
@@ -131,11 +114,6 @@ func Tally(reader io.Reader, writer io.Writer) error {
 	for _, v := range teamSlice {
 		f.WriteString(v.String())
 	}
-	fmt.Println(teamSlice)
-
-	//fmt.Println(teams)
-	// fmt.Println(fileLines)
-
 	return nil
 }
 
