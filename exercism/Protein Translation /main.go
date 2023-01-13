@@ -45,10 +45,10 @@ func FromRNA(rna string) ([]string, error) {
 	// 	}
 	// }
 
-	for i, r := range rna {
+	for i := range rna {
 		tmp := ""
 		if (i+1)%3 == 0 {
-			tmp += string(r)
+			tmp = string(rna[i-2]) + string(rna[i-1]) + string(rna[i])
 			fmt.Println(tmp)
 		}
 	}
