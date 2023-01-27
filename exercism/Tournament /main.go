@@ -34,7 +34,7 @@ func (a ByPoints) Less(i, j int) bool {
 	if a[i].P > a[j].P {
 		return true
 	} else if a[i].P == a[j].P {
-		if a[i].name > a[j].name {
+		if a[i].name < a[j].name {
 			return true
 		}
 	}
@@ -87,6 +87,9 @@ func Tally(reader io.Reader, writer io.Writer) error {
 			continue
 		}
 		slice := strings.Split(line, ";")
+		if len(slice) != 3 {
+			return fmt.Errorf("not all teams added")
+		}
 		home := teams[slice[0]]
 		away := teams[slice[1]]
 		switch slice[2] {
@@ -111,7 +114,6 @@ func Tally(reader io.Reader, writer io.Writer) error {
 			away.P += 3
 		default:
 			return fmt.Errorf("invalid")
-
 		}
 		teams[slice[0]] = home
 		teams[slice[1]] = away
