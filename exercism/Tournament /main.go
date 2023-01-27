@@ -28,9 +28,18 @@ type team struct {
 
 type ByPoints []team
 
-func (a ByPoints) Len() int           { return len(a) }
-func (a ByPoints) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByPoints) Less(i, j int) bool { return a[i].P > a[j].P }
+func (a ByPoints) Len() int      { return len(a) }
+func (a ByPoints) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByPoints) Less(i, j int) bool {
+	if a[i].P > a[j].P {
+		return true
+	} else if a[i].P == a[j].P {
+		if a[i].name > a[j].name {
+			return true
+		}
+	}
+	return false
+}
 
 func (t team) String() string {
 	return fmt.Sprintf("%-30s | %2d | %2d | %2d | %2d | %2d\n", t.name, t.MP, t.W, t.D, t.L, t.P)
@@ -47,7 +56,15 @@ func ReadFile() {
 	}
 
 	defer readFile.Close()
-	Tally(readFile, nil)
+
+	//file output
+	f, err := os.Create("output.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer f.Close()
+
+	Tally(readFile, f)
 
 }
 
@@ -63,7 +80,12 @@ func Tally(reader io.Reader, writer io.Writer) error {
 	}
 
 	for _, line := range fileLines {
-
+		if line == "" {
+			continue
+		}
+		if line[0] == '#' {
+			continue
+		}
 		slice := strings.Split(line, ";")
 		home := teams[slice[0]]
 		away := teams[slice[1]]
@@ -87,24 +109,21 @@ func Tally(reader io.Reader, writer io.Writer) error {
 			home.L += 1
 			away.W += 1
 			away.P += 3
+		default:
+			return fmt.Errorf("invalid")
+
 		}
 		teams[slice[0]] = home
 		teams[slice[1]] = away
 	}
-
-	//file output
-	f, err := os.Create("output.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer f.Close()
 
 	// sorting
 	keys := make([]string, 0, len(teams))
 	for k := range teams {
 		keys = append(keys, k)
 	}
-	f.WriteString("Team                           | MP |  W |  D |  L |  P\n")
+	//writer.WriteString("Team                           | MP |  W |  D |  L |  P\n")
+	writer.Write([]byte("Team                           | MP |  W |  D |  L |  P\n"))
 	teamSlice := []team{}
 	for names, v := range teams {
 		v.name = names
@@ -112,7 +131,7 @@ func Tally(reader io.Reader, writer io.Writer) error {
 	}
 	sort.Sort(ByPoints(teamSlice))
 	for _, v := range teamSlice {
-		f.WriteString(v.String())
+		writer.Write([]byte(v.String()))
 	}
 	return nil
 }
