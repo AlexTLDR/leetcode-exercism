@@ -6,22 +6,28 @@ import (
 )
 
 func main() {
-	fmt.Println(Nth(6))
+	fmt.Println(Nth(600))
 }
 
 func Nth(n int) (int, error) {
 	counter := 0
-	for i := 2; i < int(math.Pow(2, 64)); i++ {
-		sqRoot := int(math.Sqrt(float64(i)))
-		for j := 2; j <= sqRoot; j++ {
-			if i%j != 0 {
-				counter++
-			}
-			if n == counter {
-				return i, fmt.Errorf("")
-			}
+	i := 1
+	for {
+		i++
+		if IsPrime(i) {
+			counter++
 		}
-
+		if counter == n {
+			return i, fmt.Errorf("")
+		}
 	}
-	return 0, fmt.Errorf("no prime number")
+}
+
+func IsPrime(value int) bool {
+	for i := 2; i <= int(math.Floor(float64(value)/2)); i++ {
+		if value%i == 0 {
+			return false
+		}
+	}
+	return value > 1
 }
