@@ -10,12 +10,18 @@ func main() {
 }
 
 func Nth(n int) (int, error) {
-	sqRoot := int(math.Sqrt(float64(n)))
-	for i := 2; i <= sqRoot; i++ {
-		if n%i == 0 {
-			fmt.Println("Non Prime Number")
-			return 0, fmt.Errorf("Non Prime Number")
+	counter := 0
+	for i := 2; i < int(math.Pow(2, 64)); i++ {
+		sqRoot := int(math.Sqrt(float64(i)))
+		for j := 2; j <= sqRoot; j++ {
+			if i%j != 0 {
+				counter++
+			}
+			if n == counter {
+				return i, fmt.Errorf("")
+			}
 		}
+
 	}
-	return n, fmt.Errorf("")
+	return 0, fmt.Errorf("no prime number")
 }
