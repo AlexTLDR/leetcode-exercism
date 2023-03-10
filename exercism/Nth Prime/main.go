@@ -9,11 +9,10 @@ func main() {
 	fmt.Println(Nth(10001))
 }
 
-/*
-
-It seems that exercism doesn't like the infinite loop
-
 func Nth(n int) (int, error) {
+	if n == 0 {
+		return 0, fmt.Errorf("There is no 0th prime")
+	}
 	counter := 0
 	i := 1
 	for {
@@ -22,9 +21,10 @@ func Nth(n int) (int, error) {
 			counter++
 		}
 		if counter == n {
-			return i, fmt.Errorf("")
+			break
 		}
 	}
+	return i, nil
 }
 
 func IsPrimeCheck(value int) bool {
@@ -35,8 +35,8 @@ func IsPrimeCheck(value int) bool {
 	}
 	return value > 1
 }
-*/
 
+/*
 func Nth(n int) (int, error) {
 	if n == 0 {
 		return 0, fmt.Errorf("There is no 0th prime")
@@ -61,3 +61,4 @@ func IsPrimeCheck(value int) bool {
 	}
 	return value > 1
 }
+*/
