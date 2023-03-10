@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println(Nth(1))
+	fmt.Println(Nth(10001))
 }
 
 /*
@@ -38,8 +38,11 @@ func IsPrimeCheck(value int) bool {
 */
 
 func Nth(n int) (int, error) {
+	if n == 0 {
+		return 0, fmt.Errorf("There is no 0th prime")
+	}
 	counter := 0
-	for i := 2; i < 104743; i++ {
+	for i := 2; i <= 104743; i++ {
 		if IsPrimeCheck(i) {
 			counter++
 		}
