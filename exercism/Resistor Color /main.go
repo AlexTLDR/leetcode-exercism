@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 var scheme = map[string]int{
 	"Black":  0,
@@ -32,7 +35,7 @@ func Colors() []string {
 // ColorCode returns the resistance value of the given color.
 func ColorCode(color string) int {
 	for s, i := range scheme {
-		if s == color {
+		if strings.ToLower(s) == color {
 			return i
 		}
 	}
