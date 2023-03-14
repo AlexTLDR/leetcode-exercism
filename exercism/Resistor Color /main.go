@@ -27,7 +27,7 @@ func main() {
 func Colors() []string {
 	colors := []string{}
 	for v := range scheme {
-		colors = append(colors, v)
+		colors = append(colors, strings.ToLower(v))
 	}
 	return colors
 }
