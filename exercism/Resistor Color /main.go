@@ -1,3 +1,4 @@
+// if the colors in the map are lower case letters, the strings.ToLower can be removed
 package main
 
 import (
