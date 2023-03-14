@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 var scheme = map[string]int{
 	"Black":  0,
 	"Brown":  1,
@@ -14,7 +16,8 @@ var scheme = map[string]int{
 }
 
 func main() {
-
+	fmt.Println(Colors())
+	fmt.Println(ColorCode("Green"))
 }
 
 // Colors should return the list of all colors.
@@ -28,5 +31,10 @@ func Colors() []string {
 
 // ColorCode returns the resistance value of the given color.
 func ColorCode(color string) int {
-	panic("Please implement the ColorCode function")
+	for s, i := range scheme {
+		if s == color {
+			return i
+		}
+	}
+	return -1
 }
