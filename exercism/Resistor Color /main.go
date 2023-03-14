@@ -19,7 +19,11 @@ func main() {
 
 // Colors should return the list of all colors.
 func Colors() []string {
-	panic("Please implement the Colors function")
+	colors := []string{}
+	for v := range scheme {
+		colors = append(colors, v)
+	}
+	return colors
 }
 
 // ColorCode returns the resistance value of the given color.
