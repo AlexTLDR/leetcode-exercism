@@ -5,13 +5,14 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 var codes = []string{"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"}
 
 func main() {
 
-	fmt.Println(Label([]string{"orange", "orange", "black"}))
+	fmt.Println(Label([]string{"orange", "orange", "brown"}))
 
 }
 
@@ -22,20 +23,20 @@ func Label(colors []string) string {
 	if len(colors) != 3 {
 		return "Please input only 3 colors"
 	}
-	var resistance string
+	var resistance int
 	var unit string
+	var zeroes string
 	for i := 0; i < 2; i++ {
 		for value, code := range codes {
 			if colors[i] == code {
 				resistance = resistance + strconv.Itoa(value)
 			}
 			if colors[2] == code {
-				fmt.Println()
+				zeroes = strings.Repeat("0", value)
 			}
 		}
 	}
-	if colors[2] == "black" {
-		unit = "ohms"
-	}
+	intResistance, _ := strconv.Atoi(resistance + zeroes)
+	fmt.Println(intResistance)
 	return resistance + " " + unit
 }
