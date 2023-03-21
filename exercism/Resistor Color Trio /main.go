@@ -11,7 +11,7 @@ var codes = []string{"black", "brown", "red", "orange", "yellow", "green", "blue
 
 func main() {
 
-	fmt.Println(Label([]string{"black", "grey", "black"}))
+	fmt.Println(Label([]string{"red", "black", "red"}))
 
 }
 
@@ -41,8 +41,10 @@ func Label(colors []string) string {
 	for value, code := range codes {
 		if colors[2] == code {
 			switch {
-			case value < 3:
+			case value == 0:
 				unit = strconv.Itoa(resistance) + " ohms"
+			case value == 1 || value == 2:
+				unit = strconv.Itoa(resistance/10) + " kiloohms"
 			case value >= 3 && value < 6:
 				unit = strconv.Itoa(resistance) + " kiloohms"
 			case value >= 6 && value < 9:
