@@ -2,7 +2,12 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
+
+var codes = []string{"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"}
 
 func main() {
 
@@ -14,5 +19,16 @@ func main() {
 // The label is a string with a resistance value with an unit appended
 // (e.g. "33 ohms", "470 kiloohms").
 func Label(colors []string) string {
-	return "To Do"
+	if len(colors) != 3 {
+		return "Please input only 3 colors"
+	}
+	var resistance string
+	for i := 0; i < 2; i++ {
+		for value, code := range codes {
+			if colors[i] == code {
+				resistance = resistance + strconv.Itoa(value)
+			}
+		}
+	}
+	return resistance
 }
