@@ -11,7 +11,6 @@ func main() {
 	fmt.Println(Value([]string{"brown", "green", "violet"}))
 }
 
-// Value should return the resistance value of a resistor with a given colors.
 func Value(colors []string) int {
 	var resistance string
 	for i := 0; i < 2; i++ {
