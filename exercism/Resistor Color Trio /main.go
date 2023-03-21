@@ -4,14 +4,14 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strconv"
 )
 
 var codes = []string{"black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white"}
 
 func main() {
 
-	fmt.Println(Label([]string{"orange", "red", "white"}))
+	fmt.Println(Label([]string{"black", "grey", "black"}))
 
 }
 
@@ -23,17 +23,13 @@ func Label(colors []string) string {
 		return "Please input only 3 colors"
 	}
 	var resistance int
-	//var unit string
+	var unit string
 	//var zeroes string
 
 	for value, code := range codes {
 		if colors[0] == code {
 			resistance = value * 10
 		}
-
-		// if colors[2] == code {
-		// 	zeroes = strings.Repeat("0", value)
-		// }
 	}
 
 	for value, code := range codes {
@@ -44,11 +40,19 @@ func Label(colors []string) string {
 
 	for value, code := range codes {
 		if colors[2] == code {
-			resistance *= int(math.Pow(10, float64(value)))
+			switch {
+			case value < 3:
+				unit = strconv.Itoa(resistance) + " ohms"
+			case value >= 3 && value < 6:
+				unit = strconv.Itoa(resistance) + " kiloohms"
+			case value >= 6 && value < 9:
+				unit = strconv.Itoa(resistance) + " megaohms"
+			case value == 9:
+				unit = strconv.Itoa(resistance) + " gigaohms"
+			}
 		}
+
 	}
 
-	//intResistance, _ := strconv.Atoi(resistance + zeroes)
-	fmt.Println(resistance)
-	return ""
+	return unit
 }
