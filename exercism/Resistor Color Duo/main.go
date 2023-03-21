@@ -15,15 +15,12 @@ func main() {
 func Value(colors []string) int {
 	var resistance string
 	for i := 0; i < 2; i++ {
-		fmt.Println(codes[i])
+		for value, code := range codes {
+			if colors[i] == code {
+				resistance = resistance + strconv.Itoa(value)
+			}
+		}
 	}
-	// for _, color := range colors {
-	// 	for code, value := range codes {
-	// 		if color == code {
-	// 			resistance = resistance + strconv.Itoa(value)
-	// 		}
-	// 	}
-	// }
 	result, _ := strconv.Atoi(resistance)
 	return result
 }
