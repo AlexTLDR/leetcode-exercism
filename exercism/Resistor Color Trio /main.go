@@ -23,12 +23,19 @@ func Label(colors []string) string {
 		return "Please input only 3 colors"
 	}
 	var resistance string
+	var unit string
 	for i := 0; i < 2; i++ {
 		for value, code := range codes {
 			if colors[i] == code {
 				resistance = resistance + strconv.Itoa(value)
 			}
+			if colors[2] == code {
+				fmt.Println()
+			}
 		}
 	}
-	return resistance
+	if colors[2] == "black" {
+		unit = "ohms"
+	}
+	return resistance + " " + unit
 }
