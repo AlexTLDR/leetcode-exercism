@@ -1,3 +1,5 @@
+// https://exercism.org/tracks/go/exercises/resistor-color-duo
+
 package main
 
 import (
