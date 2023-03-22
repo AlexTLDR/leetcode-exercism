@@ -19,8 +19,8 @@ func main() {
 // The label is a string with a resistance value with an unit appended
 // (e.g. "33 ohms", "470 kiloohms").
 func Label(colors []string) string {
-	if len(colors) != 3 {
-		return "Please input only 3 colors"
+	if len(colors) < 3 {
+		return "Please input 3 colors"
 	}
 	var resistance int
 	var unit string
