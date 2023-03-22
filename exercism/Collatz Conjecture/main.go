@@ -1,15 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var count = 0
 
 func main() {
-	fmt.Println(CollatzConjecture(12))
+	fmt.Println(CollatzConjecture(1000000))
 }
 
 func CollatzConjecture(n int) (int, error) {
 	switch {
+	case n < 1:
+		return count, fmt.Errorf("n must be greater or equal to 1")
 	case n == 1:
 		return count, nil
 	case n%2 == 0:
