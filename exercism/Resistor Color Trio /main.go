@@ -45,7 +45,9 @@ func Label(colors []string) string {
 				unit = strconv.Itoa(resistance) + " ohms"
 			case value == 1:
 				unit = strconv.Itoa(resistance) + "0 ohms"
-			case value >= 2 && value < 6:
+			case value == 2:
+				unit = strconv.Itoa(resistance/10) + " kiloohms"
+			case value >= 3 && value < 6:
 				unit = strconv.Itoa(resistance) + " kiloohms"
 			case value >= 6 && value < 9:
 				unit = strconv.Itoa(resistance) + " megaohms"
