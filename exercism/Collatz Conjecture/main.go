@@ -7,5 +7,18 @@ func main() {
 }
 
 func CollatzConjecture(n int) (int, error) {
-	panic("Please implement the CollatzConjecture function")
+	steps := 0
+	fmt.Println(n)
+	switch {
+	case n == 1:
+		return steps, nil
+	case n%2 == 0:
+		steps++
+		n /= 2
+	default:
+		steps++
+		n = n*3 + 1
+	}
+	CollatzConjecture(n)
+	return steps, nil
 }
