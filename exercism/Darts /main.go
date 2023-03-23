@@ -2,7 +2,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
 	fmt.Println(Score(1, 1))
@@ -10,6 +13,7 @@ func main() {
 
 func Score(x, y float64) int {
 	score := 0.0
+	x, y = math.Abs(x), math.Abs(y)
 	switch {
 	case x >= y:
 		score = x
