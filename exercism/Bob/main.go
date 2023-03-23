@@ -5,7 +5,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(Hey("hEy BOB?"))
+	fmt.Println(Hey(""))
 }
 
 func Hey(remark string) string {
@@ -14,7 +14,14 @@ func Hey(remark string) string {
 		if Capitals(r) == "c" && remark[len(remark)-1] == 63 {
 			return "Sure."
 		}
+		if r == 0 {
+			return "Fine. Be that way!"
+		}
+	}
+	for _, r := range remark {
 		if Capitals(r) == "lc" && remark[len(remark)-1] == 63 {
+			return "Calm down, I know what I'm doing!"
+		} else {
 			return "Whoa, chill out!"
 		}
 	}
