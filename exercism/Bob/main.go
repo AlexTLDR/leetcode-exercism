@@ -4,25 +4,30 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	"regexp"
 	"unicode"
 )
 
 func main() {
-	fmt.Println(Hey("1, 2, 3, 4"))
+	fmt.Println(Hey("You are, what, like 15?"))
 }
 
 func Hey(remark string) string {
 	if len(remark) == 0 {
 		return "Fine. Be that way!"
 	}
-
-	remark = strings.Replace(remark, " ", "", -1)
-	remark = strings.Replace(remark, "\t", "", -1)
-	remark = strings.Replace(remark, "\n", "", -1)
-	remark = strings.Replace(remark, "\r", "", -1)
 	hasDecimal := false
 	hasLower := false
+	isQuestion := false
+	if remark[len(remark)-1] == 63 {
+		isQuestion = true
+	}
+	nonAlphanumericRegex := regexp.MustCompile(`[^a-zA-Z]+`)
+	remark = nonAlphanumericRegex.ReplaceAllString(remark, "")
+	if len(remark) == 0 {
+		return "Fine. Be that way!"
+	}
+
 	for _, r := range remark {
 		if unicode.IsLower(r) {
 			hasLower = true
@@ -32,7 +37,7 @@ func Hey(remark string) string {
 		}
 	}
 
-	if remark[len(remark)-1] == 63 {
+	if isQuestion {
 		if hasLower || hasDecimal {
 			return "Sure."
 		} else {
