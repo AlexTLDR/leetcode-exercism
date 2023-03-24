@@ -2,7 +2,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode"
+)
 
 func main() {
 	fmt.Println(Hey("fffbbcbeab?"))
@@ -13,36 +16,26 @@ func Hey(remark string) string {
 		return "Fine. Be that way!"
 	}
 	for _, r := range remark {
-		if r == 0 {
+		if r == 32 {
 			return "Fine. Be that way!"
 		}
-		if Capitals(r) != "lc" && remark[len(remark)-1] == 63 {
+		if unicode.IsLower(r) && remark[len(remark)-1] == 63 {
 			return "Sure."
 		}
 	}
 
 	for _, r := range remark {
-		if Capitals(r) == "lc" {
+		if unicode.IsLower(r) {
 			return "Whatever."
 		}
 	}
 	for _, r := range remark {
-		if Capitals(r) == "c" && remark[len(remark)-1] == 63 {
+		if unicode.IsUpper(r) && remark[len(remark)-1] == 63 {
 			return "Calm down, I know what I'm doing!"
-		} else if Capitals(r) == "c" {
+		} else if unicode.IsUpper(r) {
 			return "Whoa, chill out!"
 		}
 
 	}
 	return "Whatever."
-}
-
-func Capitals(i rune) string {
-	switch {
-	case i >= 97 && i <= 122:
-		return "lc"
-	case i >= 65 && i <= 90:
-		return "c"
-	}
-	return "na"
 }
