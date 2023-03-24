@@ -9,14 +9,15 @@ func main() {
 }
 
 func Hey(remark string) string {
-
+	if len(remark) == 0 {
+		return "Fine. Be that way!"
+	}
 	for _, r := range remark {
-		if Capitals(r) != "lc" && remark[len(remark)-1] == 63 {
-			return "Sure."
-		}
-
 		if r == 0 {
 			return "Fine. Be that way!"
+		}
+		if Capitals(r) != "lc" && remark[len(remark)-1] == 63 {
+			return "Sure."
 		}
 	}
 
