@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"strings"
 	"unicode"
 )
 
@@ -13,7 +14,8 @@ func main() {
 }
 
 func Hey(remark string) string {
-	if len(remark) == 0 {
+	remark = strings.TrimSpace(remark)
+	if remark == "" {
 		return "Fine. Be that way!"
 	}
 	hasDecimal := false
@@ -24,9 +26,9 @@ func Hey(remark string) string {
 	}
 	nonAlphanumericRegex := regexp.MustCompile(`[^a-zA-Z]+`)
 	remark = nonAlphanumericRegex.ReplaceAllString(remark, "")
-	if len(remark) == 0 {
-		return "Fine. Be that way!"
-	}
+	// if len(remark) == 0 {
+	// 	return "Fine. Be that way!"
+	// }
 
 	for _, r := range remark {
 		if unicode.IsLower(r) {
