@@ -10,18 +10,22 @@ import (
 )
 
 func main() {
-	fmt.Println(Hey("You are, what, like 15?"))
+	fmt.Println(Hey("4 ?"))
 }
 
 func Hey(remark string) string {
-	remark = strings.TrimSpace(remark)
+	remark = strings.Trim(remark, " ")
 	if remark == "" {
 		return "Fine. Be that way!"
 	}
 	hasDecimal := false
 	hasLower := false
 	isQuestion := false
-	if remark[len(remark)-1] == 63 {
+	// if remark[len(remark)-1] == 63 {
+	// 	isQuestion = true
+	// 	fmt.Println("from remark:", remark[len(remark)-1])
+	// }
+	if strings.HasSuffix(remark, "?") {
 		isQuestion = true
 	}
 	nonAlphanumericRegex := regexp.MustCompile(`[^a-zA-Z]+`)
@@ -31,16 +35,20 @@ func Hey(remark string) string {
 	// }
 
 	for _, r := range remark {
+		fmt.Println(r)
 		if unicode.IsLower(r) {
 			hasLower = true
 		}
 		if unicode.IsDigit(r) {
+
 			hasDecimal = true
 		}
 	}
 
 	if isQuestion {
-		if hasLower || hasDecimal {
+		if len(remark) < 1 {
+			return "Sure."
+		} else if hasLower || hasDecimal {
 			return "Sure."
 		} else {
 			return "Calm down, I know what I'm doing!"
