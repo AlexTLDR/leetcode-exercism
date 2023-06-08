@@ -27,3 +27,11 @@ func (i Italian) Greet(name string) string {
 func (i Italian) LanguageName() string {
 	return "Italian"
 }
+
+func (p Portuguese) Greet(name string) string {
+	return fmt.Sprintf("Olá %s!", name)
+}
+
+func (p Portuguese) LanguageName() string {
+	return "Portuguese"
+}
