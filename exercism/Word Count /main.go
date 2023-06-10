@@ -2,12 +2,24 @@
 
 package main
 
-func main() {
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
 
+func main() {
+	fmt.Println(WordCount(`"That's the password: 'PASSWORD 123'!", cried the Special Agent.\nSo I fled.`))
 }
 
 type Frequency map[string]int
 
 func WordCount(phrase string) Frequency {
-	panic("Please implement the WordCount function")
+	wordCount := make(map[string]int)
+	words := regexp.MustCompile(`[a-zA-Z]+`).FindAllString(phrase, -1)
+
+	for _, w := range words {
+		wordCount[strings.ToLower(w)]++
+	}
+	return wordCount
 }
