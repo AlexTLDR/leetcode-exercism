@@ -29,7 +29,7 @@ func IsValidISBN(isbn string) bool {
 
 	var ISBN int
 	for i := 0; i < len(trimmed); i++ {
-		if int(trimmed[i])-48 < 0 || int(trimmed[i])-48 > 9 {
+		if int(trimmed[i])-48 < 0 || int(trimmed[i])-48 > 9 || checkDigit < 0 || checkDigit > 10 {
 			return false
 		}
 		ISBN += (int(trimmed[0]) - 48) * (len(trimmed) - i)
