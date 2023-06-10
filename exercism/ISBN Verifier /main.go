@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	fmt.Println(IsValidISBN("3-598-21508-8"))
+	fmt.Println(IsValidISBN("3-598-21507-X"))
 }
 
 func IsValidISBN(isbn string) bool {
@@ -32,7 +32,7 @@ func IsValidISBN(isbn string) bool {
 		if int(trimmed[i])-48 < 0 || int(trimmed[i])-48 > 9 || checkDigit < 0 || checkDigit > 10 {
 			return false
 		}
-		ISBN += (int(trimmed[0]) - 48) * (len(trimmed) - i)
+		ISBN += (int(trimmed[i]) - 48) * (10 - i)
 	}
 	ISBN += checkDigit
 	if ISBN%11 == 0 {
