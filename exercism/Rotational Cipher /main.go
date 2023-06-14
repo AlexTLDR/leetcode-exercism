@@ -24,8 +24,12 @@ func RotationalCipher(plain string, shiftKey int) string {
 	encriptedMessage := ""
 	for _, letter := range plain {
 		switch {
-		case string(letter) == " ":
-			encriptedMessage += " "
+		// case string(letter) == " ":
+		// 	encriptedMessage += " "
+		// case letter <= 'A' && letter >= 'Z' && letter >= 'a' && letter <= 'z':
+		// 	encriptedMessage += string(letter)
+		case letter <= 65 || (letter > 90 && letter < 97) || (letter > 122):
+			encriptedMessage += string(letter)
 		case letter >= 'A' && letter <= 'Z':
 			encriptedMessage += shiftedCapitalAlphabet[string(letter)]
 		case letter >= 'a' && letter <= 'z':
