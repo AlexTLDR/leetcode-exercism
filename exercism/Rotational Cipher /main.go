@@ -9,18 +9,27 @@ func main() {
 }
 
 func RotationalCipher(plain string, shiftKey int) string {
-	alphabet := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	shiftedAlphabet := make(map[string]string)
-	for i, letter := range alphabet {
-		shiftedAlphabet[string(letter)] = string(alphabet[(i+shiftKey)%26])
+	capitalAlphabet := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	lowerAlphabet := "abcdefghijklmnopqrstuvwxyz"
+	shiftedCapitalAlphabet := make(map[string]string)
+	shiftedLowerAlphabet := make(map[string]string)
+	for i, letter := range capitalAlphabet {
+		shiftedCapitalAlphabet[string(letter)] = string(capitalAlphabet[(i+shiftKey)%26])
+	}
+
+	for i, letter := range lowerAlphabet {
+		shiftedLowerAlphabet[string(letter)] = string(lowerAlphabet[(i+shiftKey)%26])
 	}
 
 	encriptedMessage := ""
 	for _, letter := range plain {
-		if string(letter) == " " {
+		switch {
+		case string(letter) == " ":
 			encriptedMessage += " "
-		} else {
-			encriptedMessage += shiftedAlphabet[string(letter)]
+		case letter >= 'A' && letter <= 'Z':
+			encriptedMessage += shiftedCapitalAlphabet[string(letter)]
+		case letter >= 'a' && letter <= 'z':
+			encriptedMessage += shiftedLowerAlphabet[string(letter)]
 		}
 	}
 	return encriptedMessage
