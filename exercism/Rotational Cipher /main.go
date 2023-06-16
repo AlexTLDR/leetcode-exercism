@@ -2,36 +2,50 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	fmt.Println(RotationalCipher("abcdefghijklmnopqrstuvwxyz", 13))
 }
 
 func RotationalCipher(plain string, shiftKey int) string {
-	shiftedCapitalAlphabet := make(map[string]string)
-	shiftedLowerAlphabet := make(map[string]string)
-	shiftedCapitalAlphabet = shift("ABCDEFGHIJKLMNOPQRSTUVWXYZ", shiftKey)
-	shiftedLowerAlphabet = shift("abcdefghijklmnopqrstuvwxyz", shiftKey)
+	shiftedCapitalAlphabet, shiftedLowerAlphabet := shift("abcdefghijklmnopqrstuvwxyz", shiftKey)
 
 	encriptedMessage := ""
 	for _, letter := range plain {
 		switch {
-		case letter <= 65 || (letter > 90 && letter < 97) || (letter > 122):
+		case nonLetter(letter):
 			encriptedMessage += string(letter)
-		case letter >= 'A' && letter <= 'Z':
+		case capital(letter):
 			encriptedMessage += shiftedCapitalAlphabet[string(letter)]
-		case letter >= 'a' && letter <= 'z':
+		case lowerCase(letter):
 			encriptedMessage += shiftedLowerAlphabet[string(letter)]
 		}
 	}
 	return encriptedMessage
 }
 
-func shift(alphabet string, shiftKey int) map[string]string {
-	shifted := make(map[string]string)
+func shift(alphabet string, shiftKey int) (map[string]string, map[string]string) {
+	upperShifted := make(map[string]string)
+	lowerShifted := make(map[string]string)
 	for i, letter := range alphabet {
-		shifted[string(letter)] = string(alphabet[(i+shiftKey)%26])
+		upperShifted[strings.ToUpper(string(letter))] = strings.ToUpper(string(alphabet[(i+shiftKey)%26]))
+		lowerShifted[string(letter)] = string(alphabet[(i+shiftKey)%26])
 	}
-	return shifted
+	return upperShifted, lowerShifted
+}
+
+func capital(letter rune) bool {
+	return letter >= 'A' && letter <= 'Z'
+}
+
+func lowerCase(letter rune) bool {
+	return letter >= 'a' && letter <= 'z'
+}
+
+func nonLetter(symbol rune) bool {
+	return symbol < 'A' || (symbol > 'Z' && symbol < 'a') || (symbol > 'z')
 }
