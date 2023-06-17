@@ -5,7 +5,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(Sieve(100))
+	fmt.Println(Sieve(999999999))
 }
 
 func Sieve(limit int) []int {
@@ -27,6 +27,9 @@ func Sieve(limit int) []int {
 func getPrime(isPrime []bool) []int {
 	primes := []int{}
 	for i := 2; i < len(isPrime); i++ {
-		if 
+		if isPrime[i] {
+			primes = append(primes, i)
+		}
 	}
+	return primes
 }
