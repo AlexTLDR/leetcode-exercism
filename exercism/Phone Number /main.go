@@ -5,7 +5,7 @@ package main
 import "fmt"
 
 func main() {
-	phoneNumber := "+1 (613)-995-0253"
+	phoneNumber := "(023) 456-7890"
 	fmt.Println(Number(phoneNumber))
 	fmt.Println(AreaCode(phoneNumber))
 	fmt.Println(Format(phoneNumber))
@@ -28,7 +28,7 @@ func Number(phoneNumber string) (string, error) {
 	if len(cleanNo) == 11 {
 		cleanNo = cleanNo[1:]
 	}
-	if cleanNo[0] == 49 || cleanNo[3] == 49 {
+	if cleanNo[0] < 50 || cleanNo[3] < 50 {
 		return "", fmt.Errorf("Invalid phone number")
 	}
 	return cleanNo, nil
