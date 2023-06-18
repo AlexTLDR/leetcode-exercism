@@ -2,12 +2,24 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"strconv"
+)
 
 func main() {
 	fmt.Println(IsNumber(153))
 }
 
 func IsNumber(n int) bool {
-	panic("Please implement the IsNumber function")
+	var sum float64
+	strNum := strconv.Itoa(n)
+	for _, v := range strNum {
+		sum += math.Pow(float64(int(v-48)), float64(len(strNum)))
+	}
+	if n == int(sum) {
+		return true
+	}
+	return false
 }
