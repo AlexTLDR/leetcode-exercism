@@ -35,12 +35,12 @@ func Number(phoneNumber string) (string, error) {
 }
 
 func AreaCode(phoneNumber string) (string, error) {
-	areaCode, err := Number(phoneNumber)
-	areaCode = "(" + areaCode[:3] + ")" + " " + areaCode[3:7] + "-" + areaCode[7:]
-	return areaCode, err
+	panic("Please implement the Format function")
 
 }
 
 func Format(phoneNumber string) (string, error) {
-	panic("Please implement the Format function")
+	areaCode, err := Number(phoneNumber)
+	areaCode = "(" + areaCode[:3] + ")" + " " + areaCode[3:7] + "-" + areaCode[7:]
+	return areaCode, err
 }
