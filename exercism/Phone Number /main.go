@@ -46,6 +46,9 @@ func AreaCode(phoneNumber string) (string, error) {
 
 func Format(phoneNumber string) (string, error) {
 	format, err := Number(phoneNumber)
+	if err != nil {
+		return "", err
+	}
 	format = "(" + format[:3] + ")" + " " + format[3:6] + "-" + format[6:]
 	return format, err
 }
