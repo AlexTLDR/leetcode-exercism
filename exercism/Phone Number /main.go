@@ -28,6 +28,9 @@ func Number(phoneNumber string) (string, error) {
 	if len(cleanNo) == 11 {
 		cleanNo = cleanNo[1:]
 	}
+	if cleanNo[0] == 49 || cleanNo[3] == 49 {
+		return "", fmt.Errorf("Invalid phone number")
+	}
 	return cleanNo, nil
 }
 
