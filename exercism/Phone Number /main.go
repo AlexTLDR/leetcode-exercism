@@ -5,7 +5,7 @@ package main
 import "fmt"
 
 func main() {
-	phoneNumber := "+1 (613)-995-0253"
+	phoneNumber := " 223 456   7890   "
 	fmt.Println(Number(phoneNumber))
 	fmt.Println(AreaCode(phoneNumber))
 	fmt.Println(Format(phoneNumber))
@@ -46,6 +46,6 @@ func AreaCode(phoneNumber string) (string, error) {
 
 func Format(phoneNumber string) (string, error) {
 	format, err := Number(phoneNumber)
-	format = "(" + format[:3] + ")" + " " + format[3:7] + "-" + format[7:]
+	format = "(" + format[:3] + ")" + " " + format[3:6] + "-" + format[6:]
 	return format, err
 }
