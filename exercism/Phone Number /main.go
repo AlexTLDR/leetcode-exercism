@@ -36,6 +36,9 @@ func Number(phoneNumber string) (string, error) {
 
 func AreaCode(phoneNumber string) (string, error) {
 	areaCode, err := Number(phoneNumber)
+	if err != nil {
+		return "", err
+	}
 	areaCode = areaCode[:3]
 	return areaCode, err
 
