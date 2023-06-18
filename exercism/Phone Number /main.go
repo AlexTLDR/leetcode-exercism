@@ -13,11 +13,27 @@ func main() {
 }
 
 func Number(phoneNumber string) (string, error) {
-	panic("Please implement the Number function")
+	var cleanNo string
+	for _, char := range phoneNumber {
+		if char >= 48 && char <= 57 {
+			cleanNo += string(char)
+		}
+	}
+	if len(cleanNo) > 11 || len(cleanNo) < 10 {
+		return "", fmt.Errorf("Invalid phone number")
+	}
+	if len(cleanNo) == 11 && cleanNo[0] != 49 {
+		return "", fmt.Errorf("Invalid phone number")
+	}
+	if len(cleanNo) == 11 {
+		cleanNo = cleanNo[1:]
+	}
+	return cleanNo, nil
 }
 
 func AreaCode(phoneNumber string) (string, error) {
 	panic("Please implement the AreaCode function")
+
 }
 
 func Format(phoneNumber string) (string, error) {
