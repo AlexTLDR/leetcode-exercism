@@ -6,17 +6,18 @@ import "fmt"
 
 func main() {
 	fmt.Println(UnsafeFirst(3, "123456"))
-	fmt.Println(All(3, "1234567"))
+	fmt.Println(All(3, "49142"))
 }
 
 func All(n int, s string) []string {
-	var rs []string
+	var substrings []string
 
-	for i := 0; i < len(s)-n; i++ {
-		ss := s[i : i+n]
-		rs = append(rs, ss)
+	for i := 0; i <= len(s)-n; i++ {
+		substring := s[i : i+n]
+		substrings = append(substrings, substring)
 	}
-	return rs
+
+	return substrings
 }
 
 func UnsafeFirst(n int, s string) string {
