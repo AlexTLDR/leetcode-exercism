@@ -12,40 +12,42 @@ func main() {
 }
 
 func Atbash(s string) string {
-	shiftedCapitalAlphabet, shiftedLowerAlphabet := shift("abcdefghijklmnopqrstuvwxyz")
+	var alphabetMap = map[string]string{
+		"a": "z",
+		"b": "y",
+		"c": "x",
+		"d": "w",
+		"e": "v",
+		"f": "u",
+		"g": "t",
+		"h": "s",
+		"i": "r",
+		"j": "q",
+		"k": "p",
+		"l": "o",
+		"m": "n",
+		"n": "m",
+		"o": "l",
+		"p": "k",
+		"q": "j",
+		"r": "i",
+		"s": "h",
+		"t": "g",
+		"u": "f",
+		"v": "e",
+		"w": "d",
+		"x": "c",
+		"y": "b",
+		"z": "a",
+	}
 
-	encriptedMessage := ""
-	for _, letter := range s {
-		switch {
-		case nonLetter(letter):
-			encriptedMessage += string(letter)
-		case capital(letter):
-			encriptedMessage += shiftedCapitalAlphabet[string(letter)]
-		case lowerCase(letter):
-			encriptedMessage += shiftedLowerAlphabet[string(letter)]
+	for _, v := range s {
+		for w := range alphabetMap {
+			if string(v) == w {
+				s = strings.Replace(s, w, alphabetMap[w], 1)
+			}
 		}
 	}
-	return encriptedMessage
-}
+	return s
 
-func shift(alphabet string) (map[string]string, map[string]string) {
-	upperShifted := make(map[string]string)
-	lowerShifted := make(map[string]string)
-	for i, letter := range alphabet {
-		upperShifted[strings.ToUpper(string(letter))] = strings.ToUpper(string(alphabet[len(alphabet)-i]))
-		lowerShifted[string(letter)] = string(alphabet[len(alphabet)-i])
-	}
-	return upperShifted, lowerShifted
-}
-
-func capital(letter rune) bool {
-	return letter >= 'A' && letter <= 'Z'
-}
-
-func lowerCase(letter rune) bool {
-	return letter >= 'a' && letter <= 'z'
-}
-
-func nonLetter(symbol rune) bool {
-	return symbol < 'A' || (symbol > 'Z' && symbol < 'a') || (symbol > 'z')
 }
