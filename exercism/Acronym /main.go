@@ -18,8 +18,7 @@ func Abbreviate(s string) string {
 
 	for i := 1; i < len(s); i++ {
 		if s[i] == 39 {
-			i++
-			i++
+			i += 2
 		}
 		if !unicode.IsLetter(rune(s[i-1])) && unicode.IsLetter(rune(s[i])) {
 			abbv += string(s[i])
