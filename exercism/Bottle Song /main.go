@@ -21,7 +21,7 @@ func Recite(startBottles, takeDown int) []string {
 }
 
 func Verse(song []string, startBottles, takeDown int) []string {
-	numbers := []string{"no more", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"}
+	numbers := []string{"no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"}
 
 	plural1 := "s"
 	plural3 := "s"
