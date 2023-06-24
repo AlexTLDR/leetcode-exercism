@@ -31,7 +31,7 @@ func Verse(song []string, startBottles, takeDown int) []string {
 	if startBottles == 1 {
 		plural1 = ""
 	}
-	if startBottles-takeDown == 1 {
+	if numbers[startBottles-1] == "one" {
 		plural3 = ""
 	}
 
