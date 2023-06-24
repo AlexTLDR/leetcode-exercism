@@ -4,15 +4,17 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
-	fmt.Println(Recite(10, 1))
+	fmt.Println(Recite(3, 1))
 }
 
 func Recite(startBottles, takeDown int) []string {
 	var song []string
-	for i := startBottles; i > 0; i-- {
+	stopBottles := startBottles - takeDown
+	for i := startBottles; i > stopBottles; i-- {
 		song = Verse(song, i, takeDown)
 	}
 	return song
@@ -20,20 +22,19 @@ func Recite(startBottles, takeDown int) []string {
 
 func Verse(song []string, startBottles, takeDown int) []string {
 	numbers := []string{"no more", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"}
-	if startBottles < 1 {
-		return song
-	}
-	if startBottles == 1 {
-		song = append(song, numbers[startBottles], "green bottle hanging on the wall,\n")
-		song = append(song, numbers[startBottles], "green bottle hanging on the wall,\n")
-		song = append(song, "And if", numbers[takeDown], "green bottle should accidentally fall,\n")
-		song = append(song, "There'll be no more bottles hanging on the wall.\n")
-		return song
-	}
-	song = append(song, numbers[startBottles], "green bottles hanging on the wall,\n")
-	song = append(song, numbers[startBottles], "green bottles hanging on the wall,\n")
-	song = append(song, "And if", numbers[takeDown], "green bottle should accidentally fall,\n")
-	song = append(song, "There'll be", numbers[startBottles-takeDown], "green bottles hanging on the wall.\n\n")
-	return song
 
+	plural1 := "s"
+	plural3 := "s"
+	if startBottles == 1 {
+		plural1 = ""
+	}
+	if startBottles-takeDown == 1 {
+		plural3 = ""
+	}
+
+	line1 := fmt.Sprintf("%s green bottle%s hanging on the wall,", strings.Title(numbers[startBottles]), plural1)
+	line2 := fmt.Sprintf("And if %s green bottle should accidentally fall,", numbers[takeDown])
+	line3 := fmt.Sprintf("There'll be %s green bottle%s hanging on the wall.", numbers[startBottles-takeDown], plural3)
+	song = append(song, line1, line1, line2, line3)
+	return song
 }
