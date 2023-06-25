@@ -52,7 +52,11 @@ func (s IntList) Map(fn func(int) int) IntList {
 }
 
 func (s IntList) Reverse() IntList {
-	panic("Please implement the Reverse function")
+	var result IntList = make([]int, 0)
+	for _, value := range s {
+		result = append(IntList{value}, result...)
+	}
+	return result
 }
 
 func (s IntList) Append(lst IntList) IntList {
