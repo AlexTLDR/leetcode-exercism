@@ -1,10 +1,6 @@
 // https://exercism.org/tracks/go/exercises/list-ops
 
-package main
-
-func main() {
-
-}
+package listops
 
 // IntList is an abstraction of a list of integers which we can define methods on
 type IntList []int
