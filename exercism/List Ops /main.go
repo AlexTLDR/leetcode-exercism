@@ -10,7 +10,11 @@ func main() {
 type IntList []int
 
 func (s IntList) Foldl(fn func(int, int) int, initial int) int {
-	panic("Please implement the Foldl function")
+	var result int = initial
+	for _, value := range s {
+		result = fn(result, value)
+	}
+	return result
 }
 
 func (s IntList) Foldr(fn func(int, int) int, initial int) int {
