@@ -52,7 +52,12 @@ func (s IntList) Reverse() IntList {
 }
 
 func (s IntList) Append(lst IntList) IntList {
-	panic("Please implement the Append function")
+	l := make([]int, len(s)+len(lst))
+	copy(l, s)
+	for i, v := range lst {
+		l[len(s)+i] = v
+	}
+	return IntList(l)
 }
 
 func (s IntList) Concat(lists []IntList) IntList {
