@@ -36,7 +36,11 @@ func (s IntList) Filter(fn func(int) bool) IntList {
 }
 
 func (s IntList) Length() int {
-	panic("Please implement the Length function")
+	var result int
+	for range s {
+		result++
+	}
+	return result
 }
 
 func (s IntList) Map(fn func(int) int) IntList {
