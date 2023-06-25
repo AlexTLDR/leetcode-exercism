@@ -21,8 +21,7 @@ func Verse(i int) string {
 	if i < 1 || i > 12 {
 		return ""
 	}
-
-	return fmt.Sprintf(repeat, days[i-1], strings.Join(gifts[0:i], ", ")) + "."
+	return fmt.Sprintf(repeat, days[i-1], giftsForDay(i)) + "."
 }
 
 func Song() string {
@@ -32,4 +31,8 @@ func Song() string {
 	}
 
 	return strings.Join(verses, "\n")
+}
+
+func giftsForDay(i int) string {
+	return strings.Join(gifts[12-i:], ", ")
 }
