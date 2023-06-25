@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-
+	fmt.Println(Song())
 }
 
 var days = []string{"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"}
@@ -25,5 +25,10 @@ func Verse(i int) string {
 }
 
 func Song() string {
-	panic("Please implement the Song function")
+	var verses []string
+	for i := 1; i <= 12; i++ {
+		verses = append(verses, Verse(i))
+	}
+
+	return strings.Join(verses, "\n")
 }
