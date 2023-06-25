@@ -18,7 +18,11 @@ func (s IntList) Foldl(fn func(int, int) int, initial int) int {
 }
 
 func (s IntList) Foldr(fn func(int, int) int, initial int) int {
-	panic("Please implement the Foldr function")
+	var result int = initial
+	for _, value := range s.Reverse() {
+		result = fn(value, result)
+	}
+	return result
 }
 
 func (s IntList) Filter(fn func(int) bool) IntList {
