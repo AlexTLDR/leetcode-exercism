@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	fmt.Println(Song())
-	//fmt.Println(Verse(2))
+	//fmt.Println(Song())
+	fmt.Println(Verse(2))
 }
 
 var days = []string{"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"}
@@ -27,16 +27,27 @@ func Verse(i int) string {
 func Song() string {
 	var verses []string
 	for i := 1; i <= 12; i++ {
-		verses = append(verses, Verse(i))
+		if i == 1 {
+			verses = append(verses, "and", Verse(i))
+		} else {
+			verses = append(verses, Verse(i))
+		}
 	}
 
 	return strings.Join(verses, "\n")
 }
 
 func giftsForDay(i int) string {
+	if i == 1 {
+		return gifts[0]
+	}
+
 	reversedGifts := make([]string, i)
 	for j := 0; j < i; j++ {
 		reversedGifts[j] = gifts[i-j-1]
 	}
+
+	reversedGifts[len(reversedGifts)-1] = "and " + reversedGifts[len(reversedGifts)-1]
+
 	return strings.Join(reversedGifts, ", ")
 }
