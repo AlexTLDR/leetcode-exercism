@@ -9,7 +9,7 @@ import (
 
 func main() {
 	fmt.Println(Song())
-	fmt.Println(Verse(2))
+	//fmt.Println(Verse(2))
 }
 
 var days = []string{"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"}
@@ -34,5 +34,5 @@ func Song() string {
 }
 
 func giftsForDay(i int) string {
-	return strings.Join(gifts[12-i:], ", ")
+	return strings.Join(gifts[:i], ", ")
 }
