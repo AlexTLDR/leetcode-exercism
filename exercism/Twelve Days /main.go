@@ -34,5 +34,9 @@ func Song() string {
 }
 
 func giftsForDay(i int) string {
-	return strings.Join(gifts[:i], ", ")
+	reversedGifts := make([]string, i)
+	for j := 0; j < i; j++ {
+		reversedGifts[j] = gifts[i-j-1]
+	}
+	return strings.Join(reversedGifts, ", ")
 }
