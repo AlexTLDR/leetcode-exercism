@@ -9,5 +9,14 @@ func main() {
 }
 
 func SumMultiples(limit int, divisors ...int) int {
-	panic("Please implement the SumMultiples function")
+	var sum int
+	for i := 1; i < limit; i++ {
+		for _, divisor := range divisors {
+			if i%divisor == 0 {
+				sum += i
+				break
+			}
+		}
+	}
+	return sum
 }
