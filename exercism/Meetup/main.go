@@ -1,5 +1,3 @@
-// https://exercism.org/tracks/go/exercises/meetup
-
 package main
 
 import "time"
@@ -14,6 +12,15 @@ const (
 	Last   WeekSchedule = 5
 	Teenth WeekSchedule = 6
 )
+
+func lastDay(month time.Month, year int) int {
+	nextMonth := month + 1
+	if nextMonth > 12 {
+		nextMonth = 1
+		year++
+	}
+	return time.Date(year, nextMonth, 1, 0, 0, 0, 0, time.UTC).Add(-time.Hour).Day()
+}
 
 func Day(wSched WeekSchedule, wDay time.Weekday, month time.Month, year int) int {
 	var day int
