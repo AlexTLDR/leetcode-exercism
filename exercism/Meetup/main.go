@@ -1,42 +1,53 @@
-package main
+package meetup
 
 import "time"
+
+const testVersion = 3
 
 type WeekSchedule int
 
 const (
-	First  WeekSchedule = 1
-	Second WeekSchedule = 2
-	Third  WeekSchedule = 3
-	Fourth WeekSchedule = 4
-	Last   WeekSchedule = 5
-	Teenth WeekSchedule = 6
+	First = WeekSchedule(iota)
+	Second
+	Third
+	Fourth
+	Last
+	Teenth
 )
 
-func lastDay(month time.Month, year int) int {
-	nextMonth := month + 1
-	if nextMonth > 12 {
-		nextMonth = 1
-		year++
-	}
-	return time.Date(year, nextMonth, 1, 0, 0, 0, 0, time.UTC).Add(-time.Hour).Day()
-}
+// Day returns the calendar day that matches the meetup restrictions
+func Day(schedule WeekSchedule, day time.Weekday, month time.Month, year int) int {
+	date := time.Date(year, month, 1, 0, 0, 0, 0, time.UTC)
+	matches := []int{}
+	dayDifference := (int(day) - int(date.Weekday()) + 7) % 7
 
-func Day(wSched WeekSchedule, wDay time.Weekday, month time.Month, year int) int {
-	var day int
-	switch wSched {
-	case First:
-		day = 1
-	case Second:
-		day = 8
-	case Third:
-		day = 15
-	case Fourth:
-		day = 22
-	case Last:
-		day = lastDay(month, year)
-	case Teenth:
-		day = 13
+	if dayDifference != 0 {
+		date = date.AddDate(0, 0, dayDifference)
 	}
-	return day + int(wDay-time.Date(year, month, 1, 0, 0, 0, 0, time.UTC).Weekday()+7)%7
+
+	for date.Month() == month {
+		matches = append(matches, date.Day())
+		date = date.AddDate(0, 0, 7)
+	}
+
+	switch schedule {
+	case First:
+		return matches[0]
+	case Second:
+		return matches[1]
+	case Third:
+		return matches[2]
+	case Fourth:
+		return matches[3]
+	case Last:
+		return matches[len(matches)-1]
+	case Teenth:
+		for _, d := range matches {
+			if d >= 13 {
+				return d
+			}
+		}
+	}
+
+	panic("Invalid schedule")
 }
