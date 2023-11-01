@@ -3,86 +3,67 @@
 package kindergarten
 
 import (
-	"errors"
+	"fmt"
 	"sort"
 	"strings"
 )
 
-// Garden is the type that contains all the information about the garden.
+// Garden represents the mapping of children to the plants they own.
 type Garden map[string][]string
 
-var plants map[rune]string
-
-func init() {
-	plants = map[rune]string{
-		'C': "clover",
-		'G': "grass",
-		'R': "radishes",
-		'V': "violets",
-	}
+var plantNames = map[rune]string{
+	'R': "radishes",
+	'C': "clover",
+	'G': "grass",
+	'V': "violets",
 }
 
-// NewGarden creates a new garden from the string indicating the location.
-// of plants and an array of children's names.
+// NewGarden creates a new kindergarten garden.
 func NewGarden(diagram string, children []string) (*Garden, error) {
-	garden := Garden{}
-
-	sorted := sortedChildren(children)
-
-	row1, row2, err := interpretRows(diagram, len(sorted))
-	if err != nil {
-		return nil, err
+	// Sort and check for duplicate child names.
+	sortedChildren := make([]string, len(children))
+	copy(sortedChildren, children)
+	sort.Strings(sortedChildren)
+	for i := 1; i < len(sortedChildren); i++ {
+		if sortedChildren[i] == sortedChildren[i-1] {
+			return nil, fmt.Errorf("Child is listed twice: %s", sortedChildren[i])
+		}
 	}
 
-	for k, child := range sorted {
-		if _, ok := garden[child]; ok {
-			return nil, errors.New("duplicate child")
+	// Initialize the garden.
+	garden := Garden{}
+	if len(diagram) <= 0 || diagram[0] != '\n' {
+		return nil, fmt.Errorf("Not a valid garden format")
+	}
+	rowLen := -1
+	for _, row := range strings.Split(diagram[1:], "\n") {
+		if rowLen == -1 {
+			rowLen = len(row)
+		} else if rowLen != len(row) {
+			return nil, fmt.Errorf("Not a valid garden format: %q", diagram)
 		}
-
-		garden[child] = []string{
-			row1[k*2],
-			row1[k*2+1],
-			row2[k*2],
-			row2[k*2+1],
+		for p, plantCode := range row {
+			plantName, ok := plantNames[plantCode]
+			if !ok {
+				return nil, fmt.Errorf("Not a valid plant code: %c", plantCode)
+			}
+			if len(sortedChildren) <= p/2 {
+				return nil, fmt.Errorf("Not enough children")
+			}
+			child := sortedChildren[p/2]
+			plants, ok := garden[child]
+			if !ok {
+				plants = []string{}
+			}
+			garden[child] = append(plants, plantName)
 		}
 	}
 
 	return &garden, nil
 }
 
-// Plants returns the plants that a particular child planted.
-func (g *Garden) Plants(child string) ([]string, bool) {
-	plants, ok := (*g)[child]
+// Plants lists the plants owned by a child in the garden.
+func (g Garden) Plants(child string) ([]string, bool) {
+	plants, ok := g[child]
 	return plants, ok
-}
-
-func sortedChildren(children []string) []string {
-	newSlice := make([]string, len(children))
-	copy(newSlice, children)
-	sort.Strings(newSlice)
-	return newSlice
-}
-
-func interpretRows(diagram string, numStudents int) ([]string, []string, error) {
-	lines := strings.Split(diagram, "\n")
-
-	if lines[0] != "" {
-		return nil, nil, errors.New("invalid garden format")
-	}
-
-	row1 := []string{}
-	row2 := []string{}
-
-	for _, line := range lines[1:] {
-		if len(line) != numStudents*2 {
-			return nil, nil, errors.New("invalid garden format")
-		}
-
-		for i := 0; i < len(line); i += 2 {
-			row1 = append(row1, string(line[i]))
-			row2 = append(row2, string(line[i+1]))
-		}
-	}
-
-	return row1, row2, nil
 }
